@@ -1,9 +1,12 @@
 const express = require('express');
 const connection = require('./api/connection');
-
-const sendVerificationCodeRoute = require('./api/routes/sendVerificationCode');
+const bodyParser = require('body-parser');
 
 const app = express();
+
+app.use(bodyParser.json())
+
+const sendVerificationCodeRoute = require('./api/routes/sendVerificationCode');
 
 app.use('/sendvrificationcode', sendVerificationCodeRoute);
 
