@@ -5,8 +5,16 @@ const sendVerificationCodeHandler = require('../controllers/sendVerificationCode
 const checkValidation = require('../validation/sendVerificationCodeValidation');
 
 router.get('/', (req, res, next) => {
-    checkValidation(req, res);
-    sendVerificationCodeHandler(req, res);
+    if(checkValidation(req, res)){
+        sendVerificationCodeHandler(req, res);
+    }
+    else{
+        responseJson = {
+            message: "bad parameter provided"
+        };
+
+        return res.status(400).json(responseJson);
+    }
 });
 
 module.exports = router;
