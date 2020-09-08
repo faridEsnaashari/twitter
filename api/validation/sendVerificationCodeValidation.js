@@ -2,19 +2,12 @@ const {isString, isUndefinedOrNull} = require('../tools/tools');
 
 function checkValidation(req, res){
     if(isUndefinedOrNull(req.query.phonenumber)){
-        responseJson = {
-            message: "bad parameter provided"
-        };
-
-        return res.status(400).json(responseJson);
+        return false;
     }
     if(!isString(req.query.phonenumber)){
-        responseJson = {
-            message: "bad parameter provided"
-        };
-
-        return res.status(400).json(responseJson);
+        return false;
     }
+    return true;
 }
 
 module.exports = checkValidation;
