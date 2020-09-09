@@ -1,8 +1,8 @@
 const {Token,VerificationCode} = require('sms-ir');
 const {APIKEY} = require('../../config');
 const {SECRETKEY} = require('../../config');
-const generateRandomCode = require('../../randomCode');
-const connection = require('../../connection');
+const generateRandomCode = require('../../tools/randomCode');
+const connection = require('../../tools/connection');
 
 const token = new Token();
 const verificationCode = new VerificationCode();
