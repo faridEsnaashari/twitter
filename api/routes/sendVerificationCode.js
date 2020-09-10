@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const sendVerificationCodeHandler = require('../controllers/sendVerificationCode/get');
+const getController = require('../controllers/sendVerificationCode/get');
 const checkValidation = require('../validation/sendVerificationCodeValidation');
 
 router.get('/', (req, res, next) => {
     if(checkValidation(req, res)){
-        sendVerificationCodeHandler(req, res);
+        getController(req, res);
     }
     else{
         responseJson = {
