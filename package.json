@@ -12,7 +12,9 @@
   "dependencies": {
     "express": "^4.17.1",
     "http": "0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
+    "node-fetch": "^2.6.1",
     "nodemon": "^2.0.4",
     "sms-ir": "^1.0.5"
   }
