@@ -1,58 +1,36 @@
-const connection = require('../../tools/connectionManager');
+const { connection } = require('../../tools/connectionManager');
+const { executeQuery } = require('../../tools/connectionManager');
 const fetch = require('node-fetch');
 const generateRandomCode = require('../../tools/randomCode');
 
 async function get(req, res) {
     const phonenumber = req.query.phonenumber;
     const code = generateRandomCode();
-    const userExistsQuery = `select * from users_tbl where phonenumber = ${phonenumber}`;
-    connection.query(userExistsQuery, async (err, result, fields) => {
-        if (err) {
-            console.error(err);
-            return;
-        }
 
-        if (result.length === 0) {
+    try{
+        let query = `select * from users_tbl where phonenumber = ${phonenumber}`;
+        const selectFromUsersTBLResult = await executeQuery(connection, query);
+        if (selectFromUsersTBLResult.length === 0) {
             const responseJson = {
-                message: "user doesn't exist"
+                message: "user doesn't found"
             };
             return res.status(404).json(responseJson);
         }
-        else {
-            try {
-                const fetchResult = await fetch(`http://localhost:3000/sendvrificationcode?phonenumber=${phonenumber}&code=${code}`);
-                const fetchBody = await fetchResult.json();
-                if (fetchResult.status === 200) {
-                    const deleteIfExistedQuery = `delete from registerycode_tbl where phonenumber = ${phonenumber}`;
-                    console.log("salam3");
-                    connection.query(deleteIfExistedQuery, async (err, result, fields) => {
-                        if (err) {
-                            console.error(err);
-                            return;
-                        }
-
-                        const insertIntoRegestryQuery = `insert into registerycode_tbl value('${phonenumber}', '${code}')`
-                        console.log("salam4");
-                        connection.query(insertIntoRegestryQuery, async (err, result, fields) => {
-                            if (err) {
-                                console.error(err);
-                                return;
-                            }
-
-                            const responseJson = {
-                                message: "code sent successfully"
-                            };
-                            return res.status(200).json(responseJson);
-                        });
-                    });
-                }
-            }
-            catch (err) {
-                console.log(err);
-            }
+        const fetchResult = await fetch(`http://localhost:3000/sendvrificationcode?phonenumber=${phonenumber}&code=${code}`);
+        if (fetchResult.status === 200) {
+            query =  `delete from registerycode_tbl where phonenumber = ${phonenumber}`;
+            const deleteFromRegisteryCodeTBLResult = await executeQuery(connection, query);
+            query = `insert into registerycode_tbl value('${phonenumber}', '${code}')`;
+            const insertToRegiseryCodeTBlResult = await executeQuery(connection, query);
+            const responseJson = {
+                message: "code sent successfully"
+            };
+            return res.status(200).json(responseJson);
         }
-    });
-
+    }
+    catch (err) {
+        console.error(err);
+    }
 }
 
 module.exports = get;
