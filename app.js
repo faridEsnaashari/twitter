@@ -1,5 +1,5 @@
 const express = require('express');
-const connection = require('./api/tools/connection');
+const {connection} = require('./api/tools/connectionManager');
 const bodyParser = require('body-parser');
 
 const app = express();
