@@ -13,7 +13,7 @@ router.get('/', (req, res, next) => {
             message: "bad parameter provided"
         };
 
-        return res.status(400).json(responseJson);
+        return res.status(422).json(responseJson);
     }
 });
 
