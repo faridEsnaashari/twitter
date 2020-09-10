@@ -1,4 +1,4 @@
-const {isString, isUndefinedOrNull, isPhoneNumber} = require('../tools/tools');
+const {isString, isUndefinedOrNull, isPhoneNumber} = require('../tools/validation');
 
 function checkValidation(req, res){
     if(isUndefinedOrNull(req.body.username)){
