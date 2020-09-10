@@ -6,11 +6,15 @@ const app = express();
 
 app.use(bodyParser.json())
 
+const signinRoute = require('./api/routes/signin');
 const sendVerificationCodeRoute = require('./api/routes/sendVerificationCode');
 const verifyCodeRoute = require('./api/routes/verifyCode');
+const registerRoute = require('./api/routes/register');
 
+app.use('/signin', signinRoute);
 app.use('/sendvrificationcode', sendVerificationCodeRoute);
-app.use('/verifyCode', verifyCodeRoute);
+app.use('/verifycode', verifyCodeRoute);
+app.use('/register', registerRoute);
 
 app.use((req, res) => {
     const responseJson = {
