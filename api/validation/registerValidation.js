@@ -1,31 +1,34 @@
-const {isString, isUndefinedOrNull, isPhoneNumber} = require('../tools/validation');
+const {IsString, IsUndefinedOrNull, IsIranMobile, IsIranNationalCode} = require('../tools/validation');
 
 function checkValidation(req, res){
-    if(isUndefinedOrNull(req.body.username)){
+    if(IsUndefinedOrNull(req.body.username)){
         return false;
     }
-    if(isUndefinedOrNull(req.body.userfamily)){
+    if(IsUndefinedOrNull(req.body.userfamily)){
         return false;
     }
-    if(isUndefinedOrNull(req.body.phonenumber)){
+    if(IsUndefinedOrNull(req.body.phonenumber)){
         return false;
     }
-    if(isUndefinedOrNull(req.body.national_id_number)){
+    if(IsUndefinedOrNull(req.body.national_id_number)){
         return false;
     }
-    if(!isString(req.body.username)){
+    if(!IsString(req.body.username)){
         return false;
     }
-    if(!isString(req.body.userfamily)){
+    if(!IsString(req.body.userfamily)){
         return false;
     }
-    if(!isString(req.body.phonenumber)){
+    if(!IsString(req.body.phonenumber)){
         return false;
     }
-    if(!isString(req.body.national_id_number)){
+    if(!IsString(req.body.national_id_number)){
         return false;
     }
-    if(!isPhoneNumber(req.body.phonenumber)){
+    if(!IsIranNationalCode(req.body.national_id_number)){
+        return false;
+    }
+    if(!IsIranMobile(req.body.phonenumber)){
         return false;
     }
     return true;

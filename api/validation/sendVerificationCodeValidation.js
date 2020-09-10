@@ -1,19 +1,19 @@
-const {isString, isUndefinedOrNull, isPhoneNumber} = require('../tools/validation');
+const {IsString, IsUndefinedOrNull, IsIranMobile} = require('../tools/validation');
 
 function checkValidation(req, res){
-    if(isUndefinedOrNull(req.query.phonenumber)){
+    if(IsUndefinedOrNull(req.query.phonenumber)){
         return false;
     }
-    if(!isString(req.query.phonenumber)){
+    if(!IsString(req.query.phonenumber)){
         return false;
     }
-    if(!isPhoneNumber(req.query.phonenumber)){
+    if(!IsIranMobile(req.query.phonenumber)){
         return false;
     }
-    if(isUndefinedOrNull(req.query.code)){
+    if(IsUndefinedOrNull(req.query.code)){
         return false;
     }
-    if(!isString(req.query.code)){
+    if(!IsString(req.query.code)){
         return false;
     }
     return true;
