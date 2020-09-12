@@ -5,15 +5,17 @@ const postController = require('../controllers/register/post');
 const checkValidation = require('../validation/registerValidation');
 
 router.post('/', (req, res, next) => {
-    if(checkValidation(req, res)){
+    try{
+        checkValidation(req, res);
         postController(req, res);
     }
-    else{
-        responseJson = {
-            message: "bad parameter provided"
-        };
-
-        return res.status(422).json(responseJson);
+    catch(err){
+        const error = {
+            status: 422,
+            message: err.message,
+            field: err.field
+        }
+        return res.status(422).json(error);
     }
 });
 
