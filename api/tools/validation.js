@@ -1,3 +1,12 @@
+function IsLessThanTwittLengthLimit(value){
+    if(value.length <= 300){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 function IsString(value){
     if(typeof value === "string"){
         return true;
@@ -57,3 +66,4 @@ module.exports.IsUndefinedOrNull = IsUndefinedOrNull;
 module.exports.containAlphabetical = containAlphabetical;
 module.exports.IsIranMobile = IsIranMobile;
 module.exports.IsIranNationalCode = IsIranNationalCode;
+module.exports.IsLessThanTwittLengthLimit = IsLessThanTwittLengthLimit;
