@@ -43,6 +43,8 @@ You can read thier document as follow:
 
         ```javascript
         {
+            status: <Integer>,
+            success: <Boolean>,
             message: <String>
         }
         ```
@@ -51,6 +53,8 @@ You can read thier document as follow:
         
         ```javascript
         {
+            status: 201,
+            success: true,
             message: "user created"
         }
         ```
@@ -63,6 +67,8 @@ You can read thier document as follow:
 
         ```javascript
         {
+            status: <Integer>,
+            success: <Boolean>,
             message: <String>
         }
         ```
@@ -71,7 +77,55 @@ You can read thier document as follow:
         
         ```javascript
         {
+            status: 409,
+            success: false,
             message: "user already existed"
+        }
+        ```
+
+***
+- Status code: 503
+    - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 503,
+            success: false,
+            message: "sms panel error"
+        }
+        ```
+
+***
+- Status code: 500
+    - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 500,
+            success: false,
+            message: "internal server error"
         }
         ```
 
@@ -100,6 +154,8 @@ You can read thier document as follow:
 
         ```javascript
         {
+            status: <Integer>,
+            success: <Boolean>,
             message: <String>
         }
         ```
@@ -108,6 +164,8 @@ You can read thier document as follow:
         
         ```javascript
         {
+            status: 200,
+            success: true,
             message: "code sent successfully"
         }
         ```
@@ -120,6 +178,8 @@ You can read thier document as follow:
 
         ```javascript
         {
+            status: <Integer>,
+            success: <Boolean>,
             message: <String>
         }
         ```
@@ -128,7 +188,55 @@ You can read thier document as follow:
         
         ```javascript
         {
+            status: 404,
+            success: false,
             message: "user doesn't found"
+        }
+        ```
+
+***
+- Status code: 503
+    - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 503,
+            success: false,
+            message: "sms panel error"
+        }
+        ```
+
+***
+- Status code: 500
+    - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 500,
+            success: false,
+            message: "internal server error"
         }
         ```
 
@@ -164,6 +272,8 @@ You can read thier document as follow:
 
         ```javascript
         {
+            status: <Integer>,
+            success: <Boolean>,
             message: <String>
         }
         ```
@@ -172,18 +282,21 @@ You can read thier document as follow:
         
         ```javascript
         {
+            status: 200,
+            success: true,
             message: "verification code sent"
         }
         ```
 
 ***
-
-- Status code: 200
-    - description: If there is no problem, the server return this object as response:
+- Status code: 503
+    - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
     - body:
 
         ```javascript
         {
+            status: <Integer>,
+            success: <Boolean>,
             message: <String>
         }
         ```
@@ -192,7 +305,32 @@ You can read thier document as follow:
         
         ```javascript
         {
-            message: "verification code sent"
+            status: 503,
+            success: false,
+            message: "sms panel error"
+        }
+        ```
+
+***
+- Status code: 500
+    - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 500,
+            success: false,
+            message: "internal server error"
         }
         ```
 
@@ -228,6 +366,9 @@ You can read thier document as follow:
 
         ```javascript
         {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>,
             token: <String>
         }
         ```
@@ -236,7 +377,10 @@ You can read thier document as follow:
         
         ```javascript
         {
-            token : "eyJhbGciOiJIUzI1NiJ9.MTA.DDWsk0GAZVeeHZFxWKJrJmWXzk1cDYfui2RJIo6Btjc"
+            status: 200,
+            success: true,
+            message: "code verification done successfully",
+            token: "eyJhbGciOiJIUzI1NiJ9.MTA.DDWsk0GAZVeeHZFxWKJrJmWXzk1cDYfui2RJIo6Btjc"
         }
         ```
 
@@ -248,7 +392,9 @@ You can read thier document as follow:
 
         ```javascript
         {
-            message: <String>
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>,
         }
         ```
         
@@ -256,18 +402,22 @@ You can read thier document as follow:
         
         ```javascript
         {
-            message: "code invalid"
+            status: 404,
+            success: false,
+            message: "code is invalid"
         }
         ```
 
 ***
 
-- Status code: 404
-    - description: If the phonenumber not found, you get a response like this:
+- Status code: 500
+    - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
     - body:
 
         ```javascript
         {
+            status: <Integer>,
+            success: <Boolean>,
             message: <String>
         }
         ```
@@ -276,7 +426,9 @@ You can read thier document as follow:
         
         ```javascript
         {
-            message: "phone number not found"
+            status: 500,
+            success: false,
+            message: "internal server error"
         }
         ```
 
