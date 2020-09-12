@@ -17,10 +17,12 @@ app.use('/verifycode', verifyCodeRoute);
 app.use('/register', registerRoute);
 
 app.use((req, res) => {
-    const responseJson = {
-        message : "wrong route or method"
+    const error = {
+        status: 404,
+        success: false,
+        message: "wrong route or method"
     };
-    res.status(404).json(responseJson);
+    return res.status(404).json(error);
 });
 
 module.exports = app;
