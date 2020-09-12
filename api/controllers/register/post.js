@@ -21,20 +21,39 @@ async function post(req, res) {
             query = `insert into registerycode_tbl value('${phonenumber}', '${code}')`;
             const insertToRegestryCodeTBLResult = await executeQuery(connection, query);
             const responseJson = {
-                message: "user created"
+                status: 201,
+                success: true,
+                message: "user created",
             };
-
             return res.status(201).json(responseJson);
+        }
+        else {
+            const error = {
+                status: 503,
+                success: false,
+                message: "sms panel error",
+            };
+            return res.status(503).json(error);
         }
     }
     catch (err) {
         console.error(err);
         if (err.code === 'ER_DUP_ENTRY') {
-            responseJson = {
-                message: "user already existed"
+            const responseJson = {
+                status: 409,
+                success: false,
+                message: "user already existed",
             };
 
             return res.status(409).json(responseJson);
+        }
+        else{
+            const error = {
+                status: 500,
+                success: false,
+                message: "internal server error",
+            };
+            return res.status(500).json(error);
         }
     }
 }

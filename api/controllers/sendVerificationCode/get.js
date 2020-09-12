@@ -14,18 +14,30 @@ async function get(req, res) {
         const verificationResult = await verificationCode.send(tokenResult, phonenumber, code);
         if (verificationResult.IsSuccessful) {
             const responseJson = {
-                message: "verification code sent"
+                status: 200,
+                success: true,
+                message: "verification code sent",
             };
             return res.status(200).json(responseJson);
         }
         else {
-            throw (new Error('sms panel error'));
+            const error = {
+                status: 503,
+                success: false,
+                message: "sms panel error",
+            };
+            return res.status(503).json(error);
         }
     }
     catch (err) {
         console.error(err);
+        const error = {
+            status: 500,
+            success: false,
+            message: "internal server error",
+        };
+        return res.status(500).json(error);
     }
-
 }
 
 module.exports = get;
