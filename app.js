@@ -10,11 +10,13 @@ const signinRoute = require('./api/routes/signin');
 const sendVerificationCodeRoute = require('./api/routes/sendVerificationCode');
 const verifyCodeRoute = require('./api/routes/verifyCode');
 const registerRoute = require('./api/routes/register');
+const twittRotue = require('./api/routes/twitt/twitt');
 
 app.use('/signin', signinRoute);
 app.use('/sendvrificationcode', sendVerificationCodeRoute);
 app.use('/verifycode', verifyCodeRoute);
 app.use('/register', registerRoute);
+app.use('/twitt', twittRotue);
 
 app.use((req, res) => {
     const responseJson = {
