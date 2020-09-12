@@ -12,6 +12,7 @@ router.post('/', (req, res, next) => {
     catch(err){
         const error = {
             status: 422,
+            success: false,
             message: err.message,
             field: err.field
         }
