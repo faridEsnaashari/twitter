@@ -433,3 +433,162 @@ You can read thier document as follow:
         ```
 
 ***
+
+## send a twitt 
+
+**CREATE:** method => POST
+
+You can read thier document as follow:
+
+#### sendtwitt(POST) "*rootEndPoint*/sendtwitt":
+**Description:** With this method you can create a twitt in database belong to a specific user.
+
+**Requst parameters:** 
+- **In body:**
+    - usertoken: 
+    - required: YES
+    - type: string
+    - Description: the token of the user that submit twitt.
+    - example: "eyJhbGciOiJIUzI1NiJ9.MTA.DDWsk0GAZVeeHZFxWKJrJmWXzk1cDYfui2RJIo6Btjc"
+
+- **In body:**
+    - text: 
+    - required: YES
+    - type: string
+    - Description: Text of the twitt.
+    - example: "some oponion write here and sent to api"
+    
+- **In body:**
+    - replay_to: 
+    - required: NO
+    - type: string
+    - Description: If the twitt is replay to another twitt, this parameter should be provide.
+    - example: "112"
+    
+- **In body:**
+    - img_link: 
+    - required: YES
+    - type: string
+    - Description: If the twitt contain image, you should first uploud photo to api and then provide its link as value of this parameter.
+    - example: "http://test.com/239490234890284kl34.png"
+
+**Response body:** 
+- Status code: 201
+    - description: if there is no problem, the server return this object as response:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 201,
+            success: true,
+            message: "twitt submited"
+        }
+        ```
+
+***
+
+- Status code: 401
+    - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 401,
+                success: false,
+                message: "user unauthorized"
+        }
+        ```
+
+***
+
+- Status code: 404
+    - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 404,
+            success: false,
+            message: "user doesn't found"
+        }
+        ```
+
+***
+
+- Status code: 404
+    - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 404,
+            success: false,
+            message: "parent twitt not found"
+        }
+        ```
+
+***
+
+- Status code: 500
+    - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 500,
+            success: false,
+            message: "internal server error"
+        }
+        ```
+
+***
