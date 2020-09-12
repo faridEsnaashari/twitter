@@ -10,11 +10,12 @@ async function get(req, res) {
         let query = `select * from registerycode_tbl where phonenumber = ${phonenumber}`;
         const selectFromRegisterTBLResult = await executeQuery(connection, query);
         if (selectFromRegisterTBLResult.length === 0) {
-            responseJson = {
-                message: "phone number not found"
+            const error = {
+                status: 404,
+                success: false,
+                message: "phone number not found",
             };
-    
-            return res.status(404).json(responseJson);
+            return res.status(404).json(error);
         }
         if (selectFromRegisterTBLResult[0].code === code) {
             query = `update users_tbl set verified = true where phonenumber = '${phonenumber}'`;
@@ -25,20 +26,30 @@ async function get(req, res) {
             const selectFromUsersTBLResult = await executeQuery(connection, query);
             const userId = selectFromUsersTBLResult[0].user_id;
             const responseJson = {
-                token: token.create(userId)
+                status: 200,
+                success: true,
+                message: "code verification done successfully",
+                token: token.create(userId),
             };
             return res.status(200).json(responseJson);
         }
         else{
-            responseJson = {
-                message: "code invalid"
+            const error = {
+                status: 404,
+                success: false,
+                message: "code is invalid",
             };
-    
-            return res.status(404).json(responseJson);
+            return res.status(404).json(error);
         }
     }
     catch(err){
         console.error(err);
+        const error = {
+            status: 500,
+            success: false,
+            message: "internal server error",
+        };
+        return res.status(500).json(error);
     }
 }
 
