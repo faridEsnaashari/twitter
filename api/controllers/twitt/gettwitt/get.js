@@ -6,7 +6,7 @@ async function get(req, res) {
     try{
         const twitt_id = req.query.twitt_id;
 
-        let query = `select * from twitts_tbl where twitt_id = ${ twitt_id }`;
+        let query = `select * from twitts_tbl where twitt_id = ${ twitt_id } and deleted <> true`;
         const selectFromTwittsTBLResult = await executeQuery(connection, query);
     
         if(selectFromTwittsTBLResult.length === 0){
@@ -22,7 +22,7 @@ async function get(req, res) {
             owner_id: selectFromTwittsTBLResult[0].user_id
         };
     
-        query = `select * from twitts_tbl where replay_to_id = ${ twitt_id }`;
+        query = `select * from twitts_tbl where replay_to_id = ${ twitt_id } and deleted <> true`;
         const selectReplaysFromTwittsTBLResult = await executeQuery(connection, query);   
         
         let replays = [];
