@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const getController = require('../controllers/sendVerificationCode/get');
-const checkValidation = require('../validation/sendVerificationCodeValidation');
+const getController = require('../../controllers/register/signin/get');
+const checkValidation = require('../../validation/register/signinValidation');
 
 router.get('/', (req, res, next) => {
     try{
