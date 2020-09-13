@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const postController = require('../controllers/register/post');
-const checkValidation = require('../validation/registerValidation');
+const checkValidation = require('../../validation/twitt/sendtwittValidation');
+const postController = require('../../controllers/twitt/sendtwitt/post');
 
 router.post('/', (req, res, next) => {
     try{

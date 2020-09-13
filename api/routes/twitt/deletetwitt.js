@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const getController = require('../controllers/sendVerificationCode/get');
-const checkValidation = require('../validation/sendVerificationCodeValidation');
+const checkValidation = require('../../validation/twitt/deletetwittValidation');
+const getController = require('../../controllers/twitt/deletetwitt/get');
 
 router.get('/', (req, res, next) => {
     try{

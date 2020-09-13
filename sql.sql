@@ -23,6 +23,7 @@ create table twitts_tbl(
     user_id int not null,
     date char(24) not null,
     replay_to_id int,
+    deleted boolean DEFAULT false,
     PRIMARY KEY(twitt_id),
     FOREIGN KEY (user_id) REFERENCES users_tbl(user_id),
     FOREIGN KEY (replay_to_id) REFERENCES twitts_tbl(twitt_id)

@@ -1,7 +1,7 @@
-const { connection } = require('../../tools/connectionManager');
-const { executeQuery } = require('../../tools/connectionManager');
+const { connection } = require('../../../tools/connectionManager');
+const { executeQuery } = require('../../../tools/connectionManager');
 const fetch = require('node-fetch');
-const generateRandomCode = require('../../tools/randomCode');
+const generateRandomCode = require('../../../tools/randomCode');
 
 async function post(req, res) {
     const username = req.body.username;

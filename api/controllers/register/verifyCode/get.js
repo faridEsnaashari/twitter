@@ -1,6 +1,6 @@
-const { connection } = require('../../tools/connectionManager');
-const { executeQuery } = require('../../tools/connectionManager');
-const token = require('../../tools/token');
+const { connection } = require('../../../tools/connectionManager');
+const { executeQuery } = require('../../../tools/connectionManager');
+const token = require('../../../tools/token');
 
 async function get(req, res) {
     const phonenumber = req.query.phonenumber;
