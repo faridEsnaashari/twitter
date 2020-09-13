@@ -806,3 +806,92 @@ You can read thier document as follow:
         ```
 
 ***
+
+## delete a twitt
+
+**READ:** method => GET
+
+You can read thier document as follow:
+#### verifycode(GET) "*rootEndPoint*/verifycode":
+**Description:** With this method you can delete a specific twitt using twitt_id
+
+**Requst parameters:** 
+- **In query:**
+    - twitt_id: 
+    - required: YES
+    - type: string
+    - Description: Id of the twitt you want to delete it.
+    - example: "10"
+
+**Response body:** 
+- Status code: 200
+    - description: If there is no problem, the server return this object as response:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 200,
+            success: true,
+            message: "twitt deleted successfuly"
+        }
+        ```
+
+***
+
+- Status code: 404
+    - description: If the code is invalid, you get a response like this
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>,
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 404,
+            success: false,
+            message: "twitt not found"
+        }
+        ```
+
+***
+
+- Status code: 500
+    - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 500,
+            success: false,
+            message: "internal server error"
+        }
+        ```
+
+***
