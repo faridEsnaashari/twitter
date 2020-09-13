@@ -592,3 +592,126 @@ You can read thier document as follow:
         ```
 
 ***
+
+## get a twitt
+
+**READ:** method => GET
+
+You can read thier document as follow:
+#### verifycode(GET) "*rootEndPoint*/verifycode":
+**Description:** With this method you can get twitt details, its replays, its owner, ex using twitt_id:
+
+**Requst parameters:** 
+- **In query:**
+    - twitt_id: 
+    - required: YES
+    - type: string
+    - Description:
+    - example: "09140466901"
+
+**Response body:** 
+- Status code: 200
+    - description: If there is no problem, the server return this object as response:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            twitt: <Object>{
+                twitt_id: <Integer>,
+                text: <String>,
+                img_link: <String>,
+                replay_to: <Integer>,
+                date: <String>,
+                owner_id: <Integer>,
+                replays: <Array of Twitt Object>[
+                    {
+                        twitt_id: <Integer>,
+                        text: <String>,
+                        img_link: <String>,
+                        replay_to: <Integer>,
+                        date: <String>,
+                        owner_id: <Integer>
+                    }
+                ]
+            }
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 200,
+            success: true,
+            twitt: {
+                twitt_id: 5,
+                text: "plain text",
+                img_link: "http://domain.com/image.png",
+                replay_to: null,
+                date: "2020-09-12T10:57:37.586Z",
+                owner_id: 10,
+                replays: [
+                    {
+                        twitt_id: 9,
+                        text: "plain text",
+                        img_link: "http://domain.com/image2.png",
+                        replay_to: 5,
+                        date: "2020-09-12T10:59:49.943Z",
+                        owner_id: 14
+                    }
+                ]
+            }
+        }
+        ```
+
+***
+
+- Status code: 404
+    - description: If the twitt_id is invalid, you get a response like this
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>,
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 404,
+            success: false,
+            message: "twitt not found"
+        }
+        ```
+
+***
+
+- Status code: 500
+    - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 500,
+            success: false,
+            message: "internal server error"
+        }
+        ```
+
+***
