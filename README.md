@@ -607,7 +607,7 @@ You can read thier document as follow:
     - required: YES
     - type: string
     - Description:
-    - example: "09140466901"
+    - example: "10"
 
 **Response body:** 
 - Status code: 200
@@ -687,6 +687,97 @@ You can read thier document as follow:
             status: 404,
             success: false,
             message: "twitt not found"
+        }
+        ```
+
+***
+
+- Status code: 500
+    - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 500,
+            success: false,
+            message: "internal server error"
+        }
+        ```
+
+***
+
+## get twitts belong to a user
+
+**READ:** method => GET
+
+You can read thier document as follow:
+#### verifycode(GET) "*rootEndPoint*/verifycode":
+**Description:** With this method you can get twitt details and its replays belong to a specific user:
+
+**Requst parameters:** 
+- **In query:**
+    - user_id: 
+    - required: YES
+    - type: string
+    - Description: The user_id of the user you want to get its twitts.
+    - example: "10"
+
+**Response body:** 
+- Status code: 200
+    - description: If there is no problem, the server return this object as response:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            twitt: <Array of Twitt Object>[
+                {
+                    twitt_id: <Integer>,
+                    text: <String>,
+                    img_link: <String>,
+                    replay_to: <Integer>,
+                    date: <String>,
+                    owner_id: <Integer>
+                }
+            ]
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 200,
+            success: true,
+            twitt: [
+                {
+                    twitt_id: 5,
+                    text: "plain text",
+                    img_link: "http://domain.com/image.png",
+                    replay_to: null,
+                    date: "2020-09-12T10:57:37.586Z",
+                    owner_id: 10,
+                },
+                {
+                    twitt_id: 6,
+                    text: "plain text",
+                    img_link: "http://domain.com/image2.png",
+                    replay_to: null,
+                    date: "2020-09-12T10:57:37.586Z",
+                    owner_id: 10,
+                }
+            ]
         }
         ```
 
