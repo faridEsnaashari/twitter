@@ -1,3 +1,20 @@
+#  REGISTERATION PROCESS:
+
+For do registeration process(register or signin a user), you should do blow steps respectively:
+
+1- Use /verifyphonenumber due to its document. This route get phonenumber and send a random code to it.
+
+2- Use /verifycode due to its document. This route check get phonenumber and code and check the code is currect. if the code is currect, you get a signin_token in response.
+
+For register a user:
+
+-    3- Use /register due to its document. This route get user information along signin_token and if there is no problem, register user with its info to database.
+
+For signin a user:
+
+-    4-Use /signin due to its document. This route get signin_token and if there is no problem, you get a user_token.
+
+
 ## Register 
 
 **CREATE:** method => POST
@@ -5,9 +22,16 @@
 You can read thier document as follow:
 
 #### register(POST) "*rootEndPoint*/register":
-**Description:** With this method you can create a user in database and then a code send to him/her mobile phone number. This user is invalid when you create it with this method and route. for validate a user you should use verifycode route. 
+**Description:** With this method you can create a user in database.
 
 **Requst parameters:** 
+- **In body:**
+    - signin_token: 
+    - required: YES
+    - type: string
+    - Description: The signin_token you get use /verifycode route.
+    - example: "eyJhbGciOiJIUzI1NiJ9.Mg.ikcgElRKwoqfHe4I1YP7xtaDuWigSqt-jeDuyqZ3NHw"
+    
 - **In body:**
     - username: 
     - required: NO
@@ -21,13 +45,6 @@ You can read thier document as follow:
     - type: string
     - Description: The family of the user you want to create it.
     - example: "esnaashari"
-    
-- **In body:**
-    - phonenumber: 
-    - required: YES
-    - type: string
-    - Description: The phone number of the user you want to create it.
-    - example: "09140466901"
     
 - **In body:**
     - national_id_number: 
@@ -62,7 +79,7 @@ You can read thier document as follow:
 ***
 
 - Status code: 409
-    - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
+    - description: If same national_id_number already exists in database, you get a response like this:
     - body:
 
         ```javascript
@@ -79,13 +96,12 @@ You can read thier document as follow:
         {
             status: 409,
             success: false,
-            message: "user already existed"
+            message: "a user already existed with this national_id_number"
         }
         ```
 
-***
-- Status code: 503
-    - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
+- Status code: 409
+    - description: If same phonenumber already exists in database, you get a response like this:
     - body:
 
         ```javascript
@@ -100,13 +116,38 @@ You can read thier document as follow:
         
         ```javascript
         {
-            status: 503,
+            status: 409,
             success: false,
-            message: "sms panel error"
+            message: "a user already existed with this phonenumber"
         }
         ```
 
 ***
+
+- Status code: 403
+    - description: If signin_token is invalid, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 403,
+            success: false,
+            message: "invalid singin_token"
+        }
+        ```
+
+***
+
 - Status code: 500
     - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
     - body:
@@ -137,19 +178,45 @@ You can read thier document as follow:
 
 You can read thier document as follow:
 #### signin(GET) "*rootEndPoint*/signin":
-**Description:** you can signin a user with this route. A verification code send to user.
+**Description:** You can signin a user with this route.
 
 **Requst parameters:** 
 - **In query:**
-    - phonenumber: 
+    - signin_token: 
     - required: YES
     - type: string
-    - Description: The phonenumber of the user you want to sign it in.
-    - example: "09140466901"
+    - Description: The signin_token you get use /verifycode route.
+    - example: "eyJhbGciOiJIUzI1NiJ9.Mg.ikcgElRKwoqfHe4I1YP7xtaDuWigSqt-jeDuyqZ3NHw"
 
 **Response body:** 
 - Status code: 200
     - description: If there is no problem, the server return this object as response:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>,
+            usertoken: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 200,
+            success: true,
+            message: "signin operation done successfully",
+            usertoken: "eyJhbGciOiJIUzI1NiJ9.Mg.ikcgElRKwoqfHe4I1YP7xtaDuWigSqt-jeDuyqZ3NHw"
+        }
+        ```
+
+***
+
+- Status code: 403
+    - description: If signin_token is invalid, you get a response like this:
     - body:
 
         ```javascript
@@ -164,9 +231,9 @@ You can read thier document as follow:
         
         ```javascript
         {
-            status: 200,
-            success: true,
-            message: "code sent successfully"
+            status: 403,
+            success: false,
+            message: "invalid singin_token"
         }
         ```
 
@@ -195,29 +262,7 @@ You can read thier document as follow:
         ```
 
 ***
-- Status code: 503
-    - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
-    - body:
 
-        ```javascript
-        {
-            status: <Integer>,
-            success: <Boolean>,
-            message: <String>
-        }
-        ```
-        
-    - for example the response body may be like this:
-        
-        ```javascript
-        {
-            status: 503,
-            success: false,
-            message: "sms panel error"
-        }
-        ```
-
-***
 - Status code: 500
     - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
     - body:
@@ -242,13 +287,13 @@ You can read thier document as follow:
 
 ***
 
-## sendverificationcode
+## verifyphonenumber
 
 **READ:** method => GET
 
 You can read thier document as follow:
-#### sendverificationcode(GET) "*rootEndPoint*/sendverificationcode":
-**Description:** With this method you can send a verification code to a number:
+#### verifyphonenumber(GET) "*rootEndPoint*/verifyphonenumber":
+**Description:** With this method you can verify a phonenumber. This route send code to phonenumber via sms.
 
 **Requst parameters:** 
 - **In query:**
@@ -258,16 +303,9 @@ You can read thier document as follow:
     - Description: The phone number that you want to send a code to it.
     - example: "09140466901"
 
-- **In query:**
-    - code: 
-    - required: YES
-    - type: string
-    - Description: The code you want to send.
-    - example: "12855"
-
 **Response body:** 
 - Status code: 200
-    - description: If the user that you are try to signin doesn't exist, you get a response like this:
+    - description: If there is no problem, you get a response like this:
     - body:
 
         ```javascript
@@ -284,13 +322,13 @@ You can read thier document as follow:
         {
             status: 200,
             success: true,
-            message: "verification code sent"
+            message: "code sent successfully"
         }
         ```
 
 ***
 - Status code: 503
-    - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
+    - description: If there is some error about sms panel, you get a response like this:
     - body:
 
         ```javascript
@@ -313,7 +351,7 @@ You can read thier document as follow:
 
 ***
 - Status code: 500
-    - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
+    - description: If some internal server error happend, you get a response like this:
     - body:
 
         ```javascript
@@ -380,7 +418,7 @@ You can read thier document as follow:
             status: 200,
             success: true,
             message: "code verification done successfully",
-            token: "eyJhbGciOiJIUzI1NiJ9.MTA.DDWsk0GAZVeeHZFxWKJrJmWXzk1cDYfui2RJIo6Btjc"
+            signin_token: "eyJhbGciOiJIUzI1NiJ9.MTA.DDWsk0GAZVeeHZFxWKJrJmWXzk1cDYfui2RJIo6Btjc"
         }
         ```
 
@@ -411,7 +449,7 @@ You can read thier document as follow:
 ***
 
 - Status code: 500
-    - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
+    - description: If some internal server error happend, you get a response like this:
     - body:
 
         ```javascript
