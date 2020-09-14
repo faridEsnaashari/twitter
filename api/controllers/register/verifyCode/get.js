@@ -6,34 +6,36 @@ async function get(req, res) {
     const phonenumber = req.query.phonenumber;
     const code = req.query.code;
 
-    try{
-        let query = `select * from registerycode_tbl where phonenumber = ${phonenumber}`;
+    try {
+        query = `select * from verification_log_tbl where phonenumber = '${phonenumber}'`;
         const selectFromRegisterTBLResult = await executeQuery(connection, query);
+
         if (selectFromRegisterTBLResult.length === 0) {
-            const error = {
-                status: 404,
-                success: false,
-                message: "phone number not found",
-            };
-            return res.status(404).json(error);
+            throw "phone number not found";
         }
+
         if (selectFromRegisterTBLResult[0].code === code) {
-            query = `update users_tbl set verified = true where phonenumber = '${phonenumber}'`;
-            const updateUsersTBLResult = await executeQuery(connection, query);
-            query = `delete from registerycode_tbl where phonenumber = ${phonenumber}`;
-            const deleteFromRegisteryCodeTBLResult = await executeQuery(connection, query);
-            query = `select * from users_tbl where phonenumber = ${phonenumber}`;
-            const selectFromUsersTBLResult = await executeQuery(connection, query);
-            const userId = selectFromUsersTBLResult[0].user_id;
+            query = `update verification_log_tbl set verified = true where phonenumber = ${ phonenumber }`;
+            const updateVerificationLogTBLResult = await executeQuery(connection, query);
+
+            query = `select * from verification_log_tbl where phonenumber = ${ phonenumber }`;
+            const selectFromVerificationLogTBLResult = await executeQuery(connection, query);
+
             const responseJson = {
                 status: 200,
                 success: true,
                 message: "code verification done successfully",
-                token: token.create(userId),
+                signin_token: token.create(selectFromVerificationLogTBLResult[0].log_id),
             };
             return res.status(200).json(responseJson);
         }
-        else{
+        else {
+            throw "code is invalid";
+        }
+    }
+    catch (err) {
+        console.error(err);
+        if(err === "code is invalid"){
             const error = {
                 status: 404,
                 success: false,
@@ -41,9 +43,14 @@ async function get(req, res) {
             };
             return res.status(404).json(error);
         }
-    }
-    catch(err){
-        console.error(err);
+        if(err === "phone number not found"){
+            const error = {
+                status: 404,
+                success: false,
+                message: "phone number not found",
+            };
+            return res.status(404).json(error);
+        }
         const error = {
             status: 500,
             success: false,
