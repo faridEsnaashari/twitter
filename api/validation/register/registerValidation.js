@@ -17,10 +17,10 @@ function checkValidation(req, res){
         }
         throw error;
     }
-    if(IsUndefinedOrNull(req.body.phonenumber)){
+    if(IsUndefinedOrNull(req.body.signin_token)){
         const error = {
-            message: 'phonenumber null or undefined',
-            field: 'phonenumber',
+            message: 'signin_token null or undefined',
+            field: 'signin_token',
             error: 'undefined'
         }
         throw error;
@@ -41,18 +41,18 @@ function checkValidation(req, res){
         }
         throw error;
     }
-    if(!IsString(req.body.userfamily)){
+    if(!IsString(req.body.signin_token)){
         const error = {
-            message: 'userfamily should be string',
-            field: 'userfamily',
+            message: ' signin_token be string',
+            field: 'signin_token',
             error: 'wrong format'
         }
         throw error;
     }
-    if(!IsString(req.body.phonenumber)){
+    if(!IsString(req.body.userfamily)){
         const error = {
-            message: 'phonenumber should be string',
-            field: 'phonenumber',
+            message: 'userfamily should be string',
+            field: 'userfamily',
             error: 'wrong format'
         }
         throw error;
@@ -70,14 +70,6 @@ function checkValidation(req, res){
             message: 'the format of national_id_number is not a iran national_id_number',
             field: 'national_id_number',
             error: 'not iran national code'
-        }
-        throw error;
-    }
-    if(!IsIranMobile(req.body.phonenumber)){
-        const error = {
-            message: 'the format of phonenumber is not a iran phonenumber',
-            field: 'phonenumber',
-            error: 'not iran phonenumber'
         }
         throw error;
     }

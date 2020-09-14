@@ -1,27 +1,19 @@
 const {IsString, IsUndefinedOrNull, IsIranMobile} = require('../../tools/validation');
 
 function checkValidation(req, res){
-    if(IsUndefinedOrNull(req.query.phonenumber)){
+    if(IsUndefinedOrNull(req.query.signin_token)){
         const error = {
-            message: 'phonenumber null or undefined',
-            field: 'phonenumber',
+            message: 'signin_token null or undefined',
+            field: 'signin_token',
             error: 'undefined'
         }
         throw error;
     }
-    if(!IsString(req.query.phonenumber)){
+    if(!IsString(req.query.signin_token)){
         const error = {
-            message: 'phonenumber should be string',
-            field: 'phonenumber',
+            message: 'signin_token should be string',
+            field: 'signin_token',
             error: 'wrong format'
-        }
-        throw error;
-    }
-    if(!IsIranMobile(req.query.phonenumber)){
-        const error = {
-            message: 'the format of phonenumber is not a iran phonenumber',
-            field: 'phonenumber',
-            error: 'not iran phonenumber'
         }
         throw error;
     }
