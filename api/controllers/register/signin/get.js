@@ -1,16 +1,50 @@
 const { connection } = require('../../../tools/connectionManager');
 const { executeQuery } = require('../../../tools/connectionManager');
 const fetch = require('node-fetch');
-const generateRandomCode = require('../../../tools/randomCode');
+const token = require('../../../tools/token');
+
 
 async function get(req, res) {
-    const phonenumber = req.query.phonenumber;
-    const code = generateRandomCode();
-
     try{
-        let query = `select * from users_tbl where phonenumber = ${phonenumber}`;
+        const signin_token = req.query.signin_token;
+        const log_id = token.verify(signin_token);
+
+        let query = `select * from verification_log_tbl where log_id = ${ log_id }`;
+        const selectFromVerificationLogTBLResult = await executeQuery(connection, query);
+
+        if(!selectFromVerificationLogTBLResult[0].verified){
+            throw "invalid singin_token";
+        }
+        const phonenumber = selectFromVerificationLogTBLResult[0].phonenumber;
+
+        query = `select * from users_tbl where phonenumber = ${ phonenumber }`;
         const selectFromUsersTBLResult = await executeQuery(connection, query);
+
         if (selectFromUsersTBLResult.length === 0) {
+            throw "user doesn't found";
+        }
+
+        userId = selectFromUsersTBLResult[0].user_id;
+        const responseJson = {
+            status: 200,
+            success: true,
+            message: "signin operation done successfully",
+            usertoken: token.create(userId)
+        };
+        return res.status(200).json(responseJson);
+        
+    }
+    catch (err) {
+        console.error(err);
+        if((err.message && (err.message.includes('jwt') || err.message.includes('invalid signature'))) || err === "invalid singin_token" || err.message === "invalid token"){
+            const error = {
+                status: 403,
+                success: false,
+                message: "invalid singin_token",
+            };
+            return res.status(403).json(error);
+        }
+        if(err === "user doesn't found"){
             const error = {
                 status: 404,
                 success: false,
@@ -18,30 +52,6 @@ async function get(req, res) {
             };
             return res.status(404).json(error);
         }
-        const fetchResult = await fetch(`http://localhost:3000/sendvrificationcode?phonenumber=${phonenumber}&code=${code}`);
-        if (fetchResult.status === 200) {
-            query =  `delete from registerycode_tbl where phonenumber = ${phonenumber}`;
-            const deleteFromRegisteryCodeTBLResult = await executeQuery(connection, query);
-            query = `insert into registerycode_tbl value('${phonenumber}', '${code}')`;
-            const insertToRegiseryCodeTBlResult = await executeQuery(connection, query);
-            const error = {
-                status: 200,
-                success: true,
-                message: "code sent successfully",
-            };
-            return res.status(200).json(error);
-        }
-        else {
-            const error = {
-                status: 503,
-                success: false,
-                message: "sms panel error",
-            };
-            return res.status(503).json(error);
-        }
-    }
-    catch (err) {
-        console.error(err);
         const error = {
             status: 500,
             success: false,
