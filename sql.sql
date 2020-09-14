@@ -11,9 +11,14 @@ create table users_tbl(
     PRIMARY KEY (user_id)
 );
 
-create table registerycode_tbl(
-	phonenumber varchar(11) UNIQUE,
-    code varchar(5)
+create table verification_log_tbl(
+    log_id int not null AUTO_INCREMENT,
+	phonenumber char(11) UNIQUE,
+    code varchar(5),
+    ip char(20),
+    device_type char(15),
+    verified boolean DEFAULT false,
+    PRIMARY KEY(log_id)
 );
 
 create table twitts_tbl(
@@ -43,9 +48,13 @@ create table likes_tbl(
     FOREIGN KEY (twitt_id) REFERENCES twitts_tbl(twitt_id)
 );
 
-create table replays_to_twitt_tbl(
-	twitt_id int not null,
-    twitt_replay_id int not null,
-    FOREIGN KEY (twitt_id) REFERENCES twitts_tbl(twitt_id),
-    FOREIGN KEY (twitt_replay_id) REFERENCES twitts_tbl(twitt_id)
+-- create table replays_to_twitt_tbl(
+-- 	twitt_id int not null,
+--     twitt_replay_id int not null,
+--     FOREIGN KEY (twitt_id) REFERENCES twitts_tbl(twitt_id),
+--     FOREIGN KEY (twitt_replay_id) REFERENCES twitts_tbl(twitt_id)
+-- );
+
+create table wait_for_register_tbl(
+	phonenumber varchar(11)
 );
