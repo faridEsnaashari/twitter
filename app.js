@@ -2,11 +2,13 @@ const express = require('express');
 const {connection} = require('./api/tools/connectionManager');
 const bodyParser = require('body-parser');
 var device = require('express-device');
+const responseController = require('./api/tools/responses');
 
 const app = express();
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 app.use(device.capture());
+app.use(responseController());
 
 const signinRoute = require('./api/routes/register/signin');
 const verifyCodeRoute = require('./api/routes/register/verifyCode');
