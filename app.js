@@ -23,12 +23,7 @@ app.use('/verifyphonenumber', verifyphonenumberRoute);
 app.use('/twitt', twittRotue);
 
 app.use((req, res) => {
-    const error = {
-        status: 404,
-        success: false,
-        message: "wrong route or method"
-    };
-    return res.status(404).json(error);
+    return res.responseController.error(404, "wrong route or method");
 });
 
 module.exports = app;

@@ -16,31 +16,15 @@ async function get(req, res) {
         query = `update twitts_tbl set deleted = true where twitt_id = ${ twitt_id }`;
         const updateTwittsTBLResult = await executeQuery(connection, query);
 
-        const responseJson = {
-            status: 200,
-            success: true,
-            message: "twitt deleted successfuly"
-        };
-        return res.status(200).json(responseJson);
+        return res.responseController.send(200, "twitt deleted successfuly");
 
     }
     catch(err){
         console.error(err);
         if(err === "twitt not found"){
-            const error = {
-                status: 404,
-                success: false,
-                message: "twitt not found"
-            };
-            return res.status(404).json(error);
+            return res.responseController.error(404, "twitt not found");
         }
-
-        const error = {
-            status: 500,
-            success: false,
-            message: "internal server error",
-        };
-        return res.status(500).json(error);
+        return res.responseController.error(500, "internal server error");
     }
 }
 

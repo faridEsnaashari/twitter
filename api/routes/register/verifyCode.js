@@ -10,13 +10,7 @@ router.get('/', (req, res, next) => {
         getController(req, res);
     }
     catch(err){
-        const error = {
-            status: 422,
-            success: false,
-            message: err.message,
-            field: err.field
-        }
-        return res.status(422).json(error);
+        return res.responseController.error(422, err.message, { field: err.field });
     }
 });
 

@@ -21,13 +21,10 @@ async function get(req, res) {
             query = `select * from verification_log_tbl where phonenumber = ${ phonenumber }`;
             const selectFromVerificationLogTBLResult = await executeQuery(connection, query);
 
-            const responseJson = {
-                status: 200,
-                success: true,
-                message: "code verification done successfully",
+            responseJson = {
                 signin_token: token.create(selectFromVerificationLogTBLResult[0].log_id),
             };
-            return res.status(200).json(responseJson);
+            return res.responseController.send(200, "code verification done successfully", responseJson);
         }
         else {
             throw "code is invalid";
@@ -36,27 +33,12 @@ async function get(req, res) {
     catch (err) {
         console.error(err);
         if(err === "code is invalid"){
-            const error = {
-                status: 404,
-                success: false,
-                message: "code is invalid",
-            };
-            return res.status(404).json(error);
+            return res.responseController.error(404, "code is invalid");
         }
         if(err === "phone number not found"){
-            const error = {
-                status: 404,
-                success: false,
-                message: "phone number not found",
-            };
-            return res.status(404).json(error);
+            return res.responseController.error(404, "phone number not found");
         }
-        const error = {
-            status: 500,
-            success: false,
-            message: "internal server error",
-        };
-        return res.status(500).json(error);
+        return res.responseController.error(500, "internal server error");
     }
 }
 

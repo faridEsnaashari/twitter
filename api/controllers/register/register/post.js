@@ -36,45 +36,20 @@ async function post(req, res) {
         query = `insert into users_tbl(username, userfamily, phonenumber, national_id_number) value('${username}', '${userfamily}', '${phonenumber}', '${national_id_number}')`;
         const insertResult = await executeQuery(connection, query);
 
-        const responseJson = {
-            status: 201,
-            success: true,
-            message: "user created",
-        };
-        return res.status(201).json(responseJson);
+        return res.responseController.send(201, "user created");
     }
     catch (err) {
         console.error(err);
         if((err.message && (err.message.includes('jwt') || err.message.includes('invalid signature'))) || err === "invalid singin_token" || err.message === "invalid token"){
-            const error = {
-                status: 403,
-                success: false,
-                message: "invalid singin_token",
-            };
-            return res.status(403).json(error);
+            return res.responseController.error(403, "invalid singin_token");
         }
         if(err === "a user already exist with this national_id_number"){
-            const error = {
-                status: 409,
-                success: false,
-                message: "a user already existed with this national_id_number",
-            };
-            return res.status(409).json(error);
+            return res.responseController.errpr(409, "a user already existed with this national_id_number");
         }
         if(err === "a user already exist with this phonenumber"){
-            const error = {
-                status: 409,
-                success: false,
-                message: "a user already existed with this phonenumber",
-            };
-            return res.status(409).json(error);
+            return res.responseController.error(409, "a user already existed with this phonenumber");
         }
-        const error = {
-            status: 500,
-            success: false,
-            message: "internal server error",
-        };
-        return res.status(500).json(error);
+        return res.responseController.error(500, "internal server error");
     }
 }
 

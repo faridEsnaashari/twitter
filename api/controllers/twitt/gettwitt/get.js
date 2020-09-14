@@ -38,31 +38,14 @@ async function get(req, res) {
             replays.push(replay_twitt);
         });
     
-        result.replays = replays;
-        const responseJson = {
-            status: 200,
-            success: true,
-            twitt: result
-        };
-        return res.status(200).json(responseJson);
+        return res.responseController.send(200, null, { twitt: result, test: "khar"});
     }
     catch(err){
         console.error(err);
         if(err === "twitt not found"){
-            const error = {
-                status: 404,
-                success: false,
-                message: "twitt not found"
-            };
-            return res.status(404).json(error);
+            return res.responseController.error(404, "twitt not found");
         }
-
-        const error = {
-            status: 500,
-            success: false,
-            message: "internal server error",
-        };
-        return res.status(500).json(error);
+        return res.responseController.error(500, "internal server error");
     }
 }
 

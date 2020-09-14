@@ -31,46 +31,20 @@ async function post(req, res) {
             ${ replayTo })`;
         const insertIntoTwittsTblResult = await executeQuery(connection, query);
 
-        const responseJson = {
-            status: 201,
-            success: true,
-            message: "twitt submited"
-        };
-        return res.status(201).json(responseJson);
+        return res.responseController.send(201, "twitt submited");
     }
     catch(err){
         console.error(err);
         if(err.message === "token is not defined"){
-            const error = {
-                status: 401,
-                success: false,
-                message: "user unauthorized"
-            };
-            return res.status(401).json(error);
+            return res.responseController.error(401, "user unauthorized");
         }
         if(err === "user doesn't found"){
-            const error = {
-                status: 404,
-                success: false,
-                message: "user doesn't found"
-            };
-            return res.status(404).json(error);
+            return res.responseController.error(404, "user doesn't found");
         }
         if(err === "parent twitt not found"){
-            const error = {
-                status: 404,
-                success: false,
-                message: "parent twitt not found"
-            };
-            return res.status(404).json(error);
+            return res.responseController.error(404, "parent twitt not found");
         }
-
-        const error = {
-            status: 500,
-            success: false,
-            message: "internal server error",
-        };
-        return res.status(500).json(error);
+        return res.responseController.error(500, "internal server error");
     }
 }
 

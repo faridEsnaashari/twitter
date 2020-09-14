@@ -25,39 +25,18 @@ async function get(req, res) {
         }
 
         userId = selectFromUsersTBLResult[0].user_id;
-        const responseJson = {
-            status: 200,
-            success: true,
-            message: "signin operation done successfully",
-            usertoken: token.create(userId)
-        };
-        return res.status(200).json(responseJson);
+        return res.responseController.send(200, "signin operation done successfully", { usertoken: token.create(userId) });
         
     }
     catch (err) {
         console.error(err);
         if((err.message && (err.message.includes('jwt') || err.message.includes('invalid signature'))) || err === "invalid singin_token" || err.message === "invalid token"){
-            const error = {
-                status: 403,
-                success: false,
-                message: "invalid singin_token",
-            };
-            return res.status(403).json(error);
+            return res.responseController.error(403, "invalid singin_token");
         }
         if(err === "user doesn't found"){
-            const error = {
-                status: 404,
-                success: false,
-                message: "user doesn't found",
-            };
-            return res.status(404).json(error);
+            return res.responseController.error(404, "user doesn't found");
         }
-        const error = {
-            status: 500,
-            success: false,
-            message: "internal server error",
-        };
-        return res.status(500).json(error);
+        return res.responseController.error(500, "internal server error");
     }
 }
 

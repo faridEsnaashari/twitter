@@ -4,8 +4,6 @@ const fetch = require('node-fetch');
 
 async function get(req, res) {
     try{
-        //get data
-        //twitts from database
         const user_id = req.query.user_id;
 
         let query = `select * from twitts_tbl where user_id = ${ user_id } and deleted <> true`;
@@ -24,21 +22,11 @@ async function get(req, res) {
             twitts.push(twitt);
         });
 
-        const responseJson = {
-            status: 200,
-            success: true,
-            twitt: twitts
-        };
-        return res.status(200).json(responseJson);
+        return res.responseController.send(200, null, { twitt: twitts });
     }
     catch(err){
         console.error(err);
-        const error = {
-            status: 500,
-            success: false,
-            message: "internal server error",
-        };
-        return res.status(500).json(error);
+        return res.responseController.error(500, "internal server error");
     }
 }
 
