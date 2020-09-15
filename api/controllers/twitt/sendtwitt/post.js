@@ -1,6 +1,6 @@
-const { connection, executeQuery } = require('../../../tools/connectionManager');
-const token = require('../../../tools/token');
-const fetch = require('node-fetch');
+const { path } = require('../../../../config');
+const { connection, executeQuery } = require(path.tools.connection);
+const token = require(path.tools.token);
 
 async function post(req, res) {
     const userToken = req.body.usertoken;

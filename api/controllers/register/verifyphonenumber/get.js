@@ -1,9 +1,7 @@
-const { connection } = require('../../../tools/connectionManager');
-const { executeQuery } = require('../../../tools/connectionManager');
-const fetch = require('node-fetch');
-const generateRandomCode = require('../../../tools/randomCode');
+const { path, env } = require('../../../../config');
+const { connection, executeQuery } = require(path.tools.connection);
+const generateRandomCode = require(path.tools.randomCode);
 const { Token, VerificationCode } = require('sms-ir');
-const env = require('../../../../config');
 
 const token = new Token();
 const verificationCode = new VerificationCode();

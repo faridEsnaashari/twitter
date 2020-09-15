@@ -1,4 +1,5 @@
-const {IsString, IsUndefinedOrNull, IsIranMobile, IsIranNationalCode} = require('../../tools/validation');
+const { path } = require('../../../config');
+const { IsString, IsUndefinedOrNull, IsIranNationalCode } = require(path.tools.validation);
 
 function checkValidation(req, res, next){
     try{

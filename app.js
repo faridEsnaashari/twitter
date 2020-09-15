@@ -1,8 +1,8 @@
 const express = require('express');
-const {connection} = require('./api/tools/connectionManager');
 const bodyParser = require('body-parser');
 var device = require('express-device');
-const responseController = require('./api/tools/responses');
+const { path } = require('./config');
+const responseController = require(path.tools.responser);
 
 const app = express();
 

@@ -1,6 +1,5 @@
-const { connection, executeQuery } = require('../../../tools/connectionManager');
-const token = require('../../../tools/token');
-const fetch = require('node-fetch');
+const { path } = require('../../../../config');
+const { connection, executeQuery } = require(path.tools.connection);
 
 async function get(req, res) {
     try{
