@@ -3,7 +3,7 @@ const { executeQuery } = require('../../../tools/connectionManager');
 const fetch = require('node-fetch');
 const generateRandomCode = require('../../../tools/randomCode');
 const { Token, VerificationCode } = require('sms-ir');
-const { APIKEY, SECRETKEY } = require('../../../config');
+const env = require('../../../../config');
 
 const token = new Token();
 const verificationCode = new VerificationCode();
@@ -13,7 +13,7 @@ async function get(req, res) {
     const code = generateRandomCode();
     
     try{
-        const tokenResult = await token.get(APIKEY, SECRETKEY);
+        const tokenResult = await token.get(env.APIKEY, env.SECRETKEY);
         const verificationResult = await verificationCode.send(tokenResult, phonenumber, code);
         if (verificationResult.IsSuccessful) {
             query =  `delete from verification_log_tbl where phonenumber = ${phonenumber}`;
