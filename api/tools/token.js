@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken');
-const KEY = '13578642gardesh';
+const env = require('../../config');
+
+const KEY = env.JWT_KEY;
 
 const create = (userId) => {
     return jwt.sign(userId, KEY);
