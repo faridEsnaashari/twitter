@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const env = require('../../config');
 
-const KEY = env.JWT_KEY;
+const KEY = global.env.JWT.KEY;
 
 const create = (userId) => {
     return jwt.sign(userId, KEY);
