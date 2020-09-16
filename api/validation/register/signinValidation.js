@@ -1,5 +1,4 @@
-const { path } = require('../../../config');
-const { IsString, IsUndefinedOrNull } = require(path.tools.validation);
+const { IsString, IsUndefinedOrNull } = require(global.tools.validation);
 
 function checkValidation(req, res, next){
     try{

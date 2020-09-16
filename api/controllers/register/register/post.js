@@ -1,6 +1,5 @@
-const { path } = require('../../../../config');
-const { connection, executeQuery } = require(path.tools.connection);
-const token = require(path.tools.token);
+const { connection, executeQuery } = require(global.tools.connection);
+const token = require(global.tools.token);
 
 async function post(req, res) {
     try {

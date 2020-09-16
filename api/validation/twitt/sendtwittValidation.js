@@ -1,5 +1,4 @@
-const { path } = require('../../../config');
-const { IsString, IsUndefinedOrNull, IsLessThanTwittLengthLimit } = require(path.tools.validation);
+const { IsString, IsUndefinedOrNull, IsLessThanTwittLengthLimit } = require(global.tools.validation);
 
 function checkValidation(req, res, next){
     try{

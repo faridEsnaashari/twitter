@@ -1,6 +1,5 @@
-const { path, env } = require('../../../../config');
-const { connection, executeQuery } = require(path.tools.connection);
-const generateRandomCode = require(path.tools.randomCode);
+const { connection, executeQuery } = require(global.tools.connection);
+const generateRandomCode = require(global.tools.randomCode);
 const { Token, VerificationCode } = require('sms-ir');
 
 const token = new Token();
@@ -11,7 +10,7 @@ async function get(req, res) {
     const code = generateRandomCode();
     
     try{
-        const tokenResult = await token.get(env.APIKEY, env.SECRETKEY);
+        const tokenResult = await token.get(global.env.SMS_PANEL.APIKEY, global.env.SMS_PANEL.SECRETKEY);
         const verificationResult = await verificationCode.send(tokenResult, phonenumber, code);
         if (verificationResult.IsSuccessful) {
             query =  `delete from verification_log_tbl where phonenumber = ${phonenumber}`;

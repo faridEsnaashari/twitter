@@ -1,5 +1,4 @@
-const { path } = require('../../../../config');
-const { connection, executeQuery } = require(path.tools.connection);
+const { connection, executeQuery } = require(global.tools.connection);
 
 async function get(req, res) {
     try{
