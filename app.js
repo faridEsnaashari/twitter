@@ -1,8 +1,10 @@
+global.tools = require('./config').path.tools;
+global.env = require('./config').env;
+
 const express = require('express');
 const bodyParser = require('body-parser');
 var device = require('express-device');
-const { path } = require('./config');
-const responseController = require(path.tools.responser);
+const responseController = require(global.tools.responser);
 
 const app = express();
 
