@@ -31,6 +31,26 @@ const Path = {
         randomCode: path.resolve('./api/tools/randomCode.js'),
         responser: path.resolve('./api/tools/responser.js'),
         validation: path.resolve('./api/tools/validation.js'),
+    },
+    controllers:{
+        registerRoute: path.resolve('./api/controllers/register/register'),
+        signinRoute: path.resolve('./api/controllers/register/signin'),
+        verifycodeRoute: path.resolve('./api/controllers/register/verifycode'),
+        verifyphonenumberRoute: path.resolve('./api/controllers/register/verifyphonenumber'),
+        deletetwittRoute: path.resolve('./api/controllers/twitt/deletetwitt'),
+        gettwittRoute: path.resolve('./api/controllers/twitt/gettwitt'),
+        getusertwittsRoute: path.resolve('./api/controllers/twitt/getusertwitts'),
+        sendtwittRoute: path.resolve('./api/controllers/twitt/sendtwitt')
+    },
+    validations:{
+        registerRoute: path.resolve('./api/validations/register/register'),
+        signinRoute: path.resolve('./api/validations/register/signin'),
+        verifycodeRoute: path.resolve('./api/validations/register/verifycode'),
+        verifyphonenumberRoute: path.resolve('./api/validations/register/verifyphonenumber'),
+        deletetwittRoute: path.resolve('./api/validations/twitt/deletetwitt'),
+        gettwittRoute: path.resolve('./api/validations/twitt/gettwitt'),
+        getusertwittsRoute: path.resolve('./api/validations/twitt/getusertwitts'),
+        sendtwittRoute: path.resolve('./api/validations/twitt/sendtwitt')
     }
 };
 
