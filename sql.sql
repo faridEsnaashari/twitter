@@ -60,10 +60,10 @@ create table wait_for_register_tbl(
 );
 
 DELIMITER //
-CREATE FUNCTION BIN_TO_UUID(bin BINARY(16))
-RETURNS CHAR(36) DETERMINISTIC
+CREATE or replace FUNCTION BIN_TO_UUID(bin BINARY(16))
+RETURNS varchar(36)
 BEGIN
-  DECLARE hex CHAR(32);
+  DECLARE hex varchar(32);
   SET hex = HEX(bin);
   RETURN LOWER(CONCAT(LEFT(hex, 8), '-', MID(hex, 9, 4), '-', MID(hex, 13, 4), '-', MID(hex, 17, 4), '-', RIGHT(hex, 12)));
 END; //
@@ -71,27 +71,88 @@ DELIMITER ;
 
 
 DELIMITER //
-CREATE FUNCTION UUID_TO_BIN(uuid varchar(36))
+CREATE or replace FUNCTION UUID_TO_BIN(uuid varchar(36))
 RETURNS BINARY(16)
 BEGIN
   return UNHEX(CONCAT(REPLACE(uuid, '-', '')));
 END; //
 DELIMITER ;
 
-CREATE TRIGGER users_tbl_set_id
+DELIMITER //
+CREATE or replace TRIGGER users_tbl_set_id_insert_trigger
 BEFORE INSERT 
 ON users_tbl
 FOR EACH ROW
+BEGIN
 set NEW.user_id = UUID_TO_BIN(UUID());
+END//
+DELIMITER ;
 
-CREATE TRIGGER verification_log_tbl_set_id
+DELIMITER //
+CREATE or replace TRIGGER verification_log_tbl_set_id_insert_trigger
 BEFORE INSERT 
 ON verification_log_tbl
 FOR EACH ROW
+BEGIN
 set NEW.log_id = UUID_TO_BIN(UUID());
+END//
+DELIMITER ;
 
-CREATE TRIGGER twitts_tbl_set_id
+DELIMITER //
+CREATE or replace TRIGGER twitts_tbl_set_id_insert_trigger
 BEFORE INSERT 
 ON twitts_tbl
 FOR EACH ROW
+BEGIN
 set NEW.twitt_id = UUID_TO_BIN(UUID());
+END//
+DELIMITER ;
+
+create or replace view users_tbl_view
+AS
+select 
+BIN_TO_UUID(user_id) COLLATE utf8mb4_unicode_ci as user_id,
+username,
+userfamily, 
+phonenumber, 
+national_id_number, 
+verified 
+from users_tbl;
+
+create or replace view verification_log_tbl_view
+AS
+select 
+BIN_TO_UUID(log_id) COLLATE utf8mb4_unicode_ci as log_id,
+phonenumber,
+code,
+ip, 
+device_type,  
+verified 
+from verification_log_tbl;
+
+create or replace view twitts_tbl_view
+AS
+select 
+BIN_TO_UUID(twitt_id) COLLATE utf8mb4_unicode_ci as twitt_id,
+text,
+img_link, 
+BIN_TO_UUID(user_id) as user_id,  
+date,
+BIN_TO_UUID(replay_to_id) as replay_to_id,
+deleted 
+from twitts_tbl;
+
+create or replace view retwitters_tbl_view
+AS
+select 
+BIN_TO_UUID(twitt_id) COLLATE utf8mb4_unicode_ci as twitt_id,
+BIN_TO_UUID(user_id) COLLATE utf8mb4_unicode_ci as user_id
+from retwitters_tbl;
+
+create or replace view likes_tbl_view
+AS
+select 
+BIN_TO_UUID(twitt_id) COLLATE utf8mb4_unicode_ci as twitt_id,
+BIN_TO_UUID(user_id) COLLATE utf8mb4_unicode_ci as user_id
+from likes_tbl;
+

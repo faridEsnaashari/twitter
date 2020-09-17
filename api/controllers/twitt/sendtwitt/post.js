@@ -10,13 +10,13 @@ async function post(req, res) {
 
     try{
         const userId = token.verify(userToken);
-        let query = `select * from users_tbl where user_id = ${ userId }`;
+        let query = `select * from users_tbl_view where user_id = '${ userId }'`;
         const checkUserIdResult = await executeQuery(connection, query);
         if(checkUserIdResult.length === 0){
             throw "user doesn't found";
         }
         if(req.body.replay_to){
-            query = `select * from twitts_tbl where twitt_id = ${ replayTo }`;
+            query = `select * from twitts_tbl_view where twitt_id = '${ replayTo }'`;
             const checkRepalyToResult = await executeQuery(connection, query);
             if(checkRepalyToResult.length === 0){
                 throw "parent twitt not found";
@@ -25,9 +25,9 @@ async function post(req, res) {
         query = `insert into twitts_tbl(text, img_link, user_id, date, replay_to_id) value(
             '${ text }',
             '${ imgLink }',
-            ${ userId },
+            UUID_TO_BIN('${ userId }'),
             '${ date }',
-            ${ replayTo })`;
+            UUID_TO_BIN('${ replayTo }'))`;
         const insertIntoTwittsTblResult = await executeQuery(connection, query);
 
         return res.responseController.send(201, "twitt submited");

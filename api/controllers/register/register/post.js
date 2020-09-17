@@ -10,21 +10,21 @@ async function post(req, res) {
         const signin_token = req.body.signin_token;
         const log_id = token.verify(signin_token);
 
-        let query = `select * from verification_log_tbl where log_id = ${ log_id }`;
+        let query = `select * from verification_log_tbl_view where log_id = '${ log_id }'`;
         const selectFromVerificationLogTBLResult = await executeQuery(connection, query);
         if(!selectFromVerificationLogTBLResult[0].verified){
             throw "invalid singin_token";
         }
         const phonenumber = selectFromVerificationLogTBLResult[0].phonenumber;
 
-        query = `select * from users_tbl where national_id_number = '${national_id_number}'`;
+        query = `select * from users_tbl_view where national_id_number = '${national_id_number}'`;
         const selectNationalIdFromUsersTBLResult = await executeQuery(connection, query);
 
         if (selectNationalIdFromUsersTBLResult.length !== 0) {
             throw "a user already exist with this national_id_number";
         }
 
-        query = `select * from users_tbl where phonenumber = '${phonenumber}'`;
+        query = `select * from users_tbl_view where phonenumber = '${phonenumber}'`;
         const selectPhonenumberFromUsersTBLResult = await executeQuery(connection, query);
 
         if (selectPhonenumberFromUsersTBLResult.length !== 0) {

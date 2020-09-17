@@ -4,7 +4,7 @@ async function get(req, res) {
     try{
         const user_id = req.query.user_id;
 
-        let query = `select * from twitts_tbl where user_id = ${ user_id } and deleted <> true`;
+        let query = `select * from twitts_tbl_view where user_id = '${ user_id }' and deleted <> true`;
         const selectFromTwittsTBLResult = await executeQuery(connection, query);
 
         const twitts = [];

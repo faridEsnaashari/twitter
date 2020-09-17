@@ -4,14 +4,14 @@ async function get(req, res) {
     try{
         const twitt_id = req.query.twitt_id;
 
-        let query = `select * from twitts_tbl where twitt_id = ${ twitt_id }`;
+        let query = `select * from twitts_tbl_view where twitt_id = '${ twitt_id }'`;
         const selectFromTwittsTBLResult = await executeQuery(connection, query);
 
         if(selectFromTwittsTBLResult.length === 0){
             throw "twitt not found";
         }
 
-        query = `update twitts_tbl set deleted = true where twitt_id = ${ twitt_id }`;
+        query = `update twitts_tbl set deleted = true where twitt_id = UUID_TO_BIN('${ twitt_id }')`;
         const updateTwittsTBLResult = await executeQuery(connection, query);
 
         return res.responseController.send(200, "twitt deleted successfuly");

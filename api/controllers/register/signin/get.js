@@ -6,7 +6,7 @@ async function get(req, res) {
         const signin_token = req.query.signin_token;
         const log_id = token.verify(signin_token);
 
-        let query = `select * from verification_log_tbl where log_id = ${ log_id }`;
+        let query = `select * from verification_log_tbl_view where log_id = '${ log_id }'`;
         const selectFromVerificationLogTBLResult = await executeQuery(connection, query);
 
         if(!selectFromVerificationLogTBLResult[0].verified){
@@ -14,7 +14,7 @@ async function get(req, res) {
         }
         const phonenumber = selectFromVerificationLogTBLResult[0].phonenumber;
 
-        query = `select * from users_tbl where phonenumber = ${ phonenumber }`;
+        query = `select * from users_tbl_view where phonenumber = '${ phonenumber }'`;
         const selectFromUsersTBLResult = await executeQuery(connection, query);
 
         if (selectFromUsersTBLResult.length === 0) {

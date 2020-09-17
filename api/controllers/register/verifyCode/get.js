@@ -6,19 +6,19 @@ async function get(req, res) {
     const code = req.query.code;
 
     try {
-        query = `select * from verification_log_tbl where phonenumber = '${phonenumber}'`;
-        const selectFromRegisterTBLResult = await executeQuery(connection, query);
+        query = `select * from verification_log_tbl_view where phonenumber = '${phonenumber}'`;
+        const selectFromVerificationLogTBLResult = await executeQuery(connection, query);
 
-        if (selectFromRegisterTBLResult.length === 0) {
+        if (selectFromVerificationLogTBLResult.length === 0) {
             throw "phone number not found";
         }
 
-        if (selectFromRegisterTBLResult[0].code === code) {
+        if (selectFromVerificationLogTBLResult[0].code === code) {
             query = `update verification_log_tbl set verified = true where phonenumber = ${ phonenumber }`;
             const updateVerificationLogTBLResult = await executeQuery(connection, query);
 
-            query = `select * from verification_log_tbl where phonenumber = ${ phonenumber }`;
-            const selectFromVerificationLogTBLResult = await executeQuery(connection, query);
+            // query = `select * from verification_log_tbl where phonenumber = ${ phonenumber }`;
+            // selectFromVerificationLogTBLResult = await executeQuery(connection, query);
 
             responseJson = {
                 signin_token: token.create(selectFromVerificationLogTBLResult[0].log_id),
