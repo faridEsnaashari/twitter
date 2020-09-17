@@ -1,5 +1,7 @@
 global.tools = require('./config').path.tools;
 global.env = require('./config').env;
+global.controllers = require('./config').path.controllers;
+global.validations = require('./config').path.validations;
 
 const express = require('express');
 const bodyParser = require('body-parser');
