@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const getController = require('../../controllers/register/verifyCode/get');
-const checkValidation = require('../../validation/register/verifyCodeValidation');
+const getController = require(`${ global.controllers.verifycodeRoute }/get`);
+const checkValidation = require(`${ global.validations.verifycodeRoute }/get`);
 
 router.get('/', checkValidation, getController);
 

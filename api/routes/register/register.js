@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const postController = require('../../controllers/register/register/post');
-const checkValidation = require('../../validation/register/registerValidation');
+const postController = require(`${ global.controllers.registerRoute }/post`);
+const checkValidation = require(`${ global.validations.registerRoute }/post`);
 
 router.post('/', checkValidation, postController);
 
