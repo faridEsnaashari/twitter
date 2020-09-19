@@ -25,11 +25,14 @@ const env = {
 };
 
 const Path = {
+    middleware:{
+        responser: path.resolve('./api/middleware/responser.js'),
+        processAuthorization: path.resolve('./api/middleware/processAuthorization.js')
+    },
     tools:{
         connection: path.resolve('./api/tools/connectionManager.js'),
         token: path.resolve('./api/tools/token.js'),
         randomCode: path.resolve('./api/tools/randomCode.js'),
-        responser: path.resolve('./api/tools/responser.js'),
         validation: path.resolve('./api/tools/validation.js'),
     },
     v1:{
