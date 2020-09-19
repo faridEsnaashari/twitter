@@ -32,25 +32,27 @@ const Path = {
         responser: path.resolve('./api/tools/responser.js'),
         validation: path.resolve('./api/tools/validation.js'),
     },
-    controllers:{
-        registerRoute: path.resolve('./api/controllers/register/register'),
-        signinRoute: path.resolve('./api/controllers/register/signin'),
-        verifycodeRoute: path.resolve('./api/controllers/register/verifycode'),
-        verifyphonenumberRoute: path.resolve('./api/controllers/register/verifyphonenumber'),
-        deletetwittRoute: path.resolve('./api/controllers/twitt/deletetwitt'),
-        gettwittRoute: path.resolve('./api/controllers/twitt/gettwitt'),
-        getusertwittsRoute: path.resolve('./api/controllers/twitt/getusertwitts'),
-        sendtwittRoute: path.resolve('./api/controllers/twitt/sendtwitt')
-    },
-    validations:{
-        registerRoute: path.resolve('./api/validations/register/register'),
-        signinRoute: path.resolve('./api/validations/register/signin'),
-        verifycodeRoute: path.resolve('./api/validations/register/verifycode'),
-        verifyphonenumberRoute: path.resolve('./api/validations/register/verifyphonenumber'),
-        deletetwittRoute: path.resolve('./api/validations/twitt/deletetwitt'),
-        gettwittRoute: path.resolve('./api/validations/twitt/gettwitt'),
-        getusertwittsRoute: path.resolve('./api/validations/twitt/getusertwitts'),
-        sendtwittRoute: path.resolve('./api/validations/twitt/sendtwitt')
+    v1:{
+        controllers:{
+            registerRoute: path.resolve('./api/v1/controllers/register/register'),
+            signinRoute: path.resolve('./api/v1/controllers/register/signin'),
+            verifycodeRoute: path.resolve('./api/v1/controllers/register/verifycode'),
+            verifyphonenumberRoute: path.resolve('./api/v1/controllers/register/verifyphonenumber'),
+            deletetwittRoute: path.resolve('./api/v1/controllers/twitt/deletetwitt'),
+            gettwittRoute: path.resolve('./api/v1/controllers/twitt/gettwitt'),
+            getusertwittsRoute: path.resolve('./api/v1/controllers/twitt/getusertwitts'),
+            sendtwittRoute: path.resolve('./api/v1/controllers/twitt/sendtwitt')
+        },
+        validations:{
+            registerRoute: path.resolve('./api/v1/validations/register/register'),
+            signinRoute: path.resolve('./api/v1/validations/register/signin'),
+            verifycodeRoute: path.resolve('./api/v1/validations/register/verifycode'),
+            verifyphonenumberRoute: path.resolve('./api/v1/validations/register/verifyphonenumber'),
+            deletetwittRoute: path.resolve('./api/v1/validations/twitt/deletetwitt'),
+            gettwittRoute: path.resolve('./api/v1/validations/twitt/gettwitt'),
+            getusertwittsRoute: path.resolve('./api/v1/validations/twitt/getusertwitts'),
+            sendtwittRoute: path.resolve('./api/v1/validations/twitt/sendtwitt')
+        }
     }
 };
 
