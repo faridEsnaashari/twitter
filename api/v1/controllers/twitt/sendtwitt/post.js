@@ -1,15 +1,13 @@
 const { connection, executeQuery } = require(global.tools.connection);
-const token = require(global.tools.token);
 
 async function post(req, res) {
-    const userToken = req.body.usertoken;
+    const userId = req.body.decoded_token;
     const text = req.body.text;
     const replayTo = req.body.replay_to || null;
     const imgLink = req.body.img_link || null;
     const date = Date.now();
 
     try{
-        const userId = token.verify(userToken);
         let query = `select * from users_tbl_view where user_id = '${ userId }'`;
         const checkUserIdResult = await executeQuery(connection, query);
         if(checkUserIdResult.length === 0){

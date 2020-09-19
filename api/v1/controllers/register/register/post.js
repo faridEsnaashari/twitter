@@ -1,5 +1,4 @@
 const { connection, executeQuery } = require(global.tools.connection);
-const token = require(global.tools.token);
 
 async function post(req, res) {
     try {
@@ -7,12 +6,12 @@ async function post(req, res) {
         const userfamily = req.body.userfamily;
         const national_id_number = req.body.national_id_number;
 
-        const signin_token = req.body.signin_token;
-        const log_id = token.verify(signin_token);
+        const log_id = req.body.decoded_token;
 
         let query = `select * from verification_log_tbl_view where log_id = '${ log_id }'`;
         const selectFromVerificationLogTBLResult = await executeQuery(connection, query);
-        if(!selectFromVerificationLogTBLResult[0].verified){
+        
+        if(!selectFromVerificationLogTBLResult[0] || !selectFromVerificationLogTBLResult[0].verified){
             throw "invalid singin_token";
         }
         const phonenumber = selectFromVerificationLogTBLResult[0].phonenumber;
@@ -38,7 +37,7 @@ async function post(req, res) {
     }
     catch (err) {
         console.error(err);
-        if((err.message && (err.message.includes('jwt') || err.message.includes('invalid signature'))) || err === "invalid singin_token" || err.message === "invalid token"){
+        if(err === "invalid singin_token"){
             return res.responseController.error(403, "invalid singin_token");
         }
         if(err === "a user already exist with this national_id_number"){

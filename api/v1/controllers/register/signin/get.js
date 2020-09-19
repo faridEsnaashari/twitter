@@ -3,8 +3,7 @@ const token = require(global.tools.token);
 
 async function get(req, res) {
     try{
-        const signin_token = req.query.signin_token;
-        const log_id = token.verify(signin_token);
+        const log_id = req.body.decoded_token;
 
         let query = `select * from verification_log_tbl_view where log_id = '${ log_id }'`;
         const selectFromVerificationLogTBLResult = await executeQuery(connection, query);
