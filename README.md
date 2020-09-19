@@ -99,6 +99,8 @@ You can read thier document as follow:
         }
         ```
 
+***
+
 - Status code: 409
     - description: If same phonenumber already exists in database, you get a response like this:
     - body:
@@ -123,6 +125,32 @@ You can read thier document as follow:
 
 ***
 
+- Status code: 422
+    - description: If some parameter don't provided or provided wrong, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>,
+            field: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            "status": 422,
+            "success": false,
+            "message": "username null or undefined",
+            "field": "username"
+        }
+        ```
+
+***
+
 - Status code: 403
     - description: If signin_token is invalid, you get a response like this:
     - body:
@@ -142,6 +170,30 @@ You can read thier document as follow:
             status: 403,
             success: false,
             message: "invalid singin_token"
+        }
+        ```
+
+***
+
+- Status code: 400
+    - description: If Authorization not provided or is invalid, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            "status": 400,
+            "success": false,
+            "message": "authorization not set"
         }
         ```
 
@@ -261,6 +313,30 @@ You can read thier document as follow:
 
 ***
 
+- Status code: 400
+    - description: If Authorization not provided or is invalid, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            "status": 400,
+            "success": false,
+            "message": "authorization not set"
+        }
+        ```
+
+***
+
 - Status code: 500
     - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
     - body:
@@ -325,6 +401,33 @@ You can read thier document as follow:
         ```
 
 ***
+
+- Status code: 422
+    - description: If some parameter don't provided or provided wrong, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>,
+            field: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            "status": 422,
+            "success": false,
+            "message": "username null or undefined",
+            "field": "username"
+        }
+        ```
+
+***
+
 - Status code: 503
     - description: If there is some error about sms panel, you get a response like this:
     - body:
@@ -348,6 +451,7 @@ You can read thier document as follow:
         ```
 
 ***
+
 - Status code: 500
     - description: If some internal server error happend, you get a response like this:
     - body:
@@ -417,6 +521,32 @@ You can read thier document as follow:
             success: true,
             message: "code verification done successfully",
             signin_token: "eyJhbGciOiJIUzI1NiJ9.MTA.DDWsk0GAZVeeHZFxWKJrJmWXzk1cDYfui2RJIo6Btjc"
+        }
+        ```
+
+***
+
+- Status code: 422
+    - description: If some parameter don't provided or provided wrong, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>,
+            field: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            "status": 422,
+            "success": false,
+            "message": "username null or undefined",
+            "field": "username"
         }
         ```
 
@@ -532,6 +662,56 @@ You can read thier document as follow:
 
 ***
 
+- Status code: 422
+    - description: If some parameter don't provided or provided wrong, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>,
+            field: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            "status": 422,
+            "success": false,
+            "message": "username null or undefined",
+            "field": "username"
+        }
+        ```
+
+***
+
+- Status code: 400
+    - description: If Authorization not provided or is invalid, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            "status": 400,
+            "success": false,
+            "message": "authorization not set"
+        }
+        ```
+
+***
+
 - Status code: 401
     - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
     - body:
@@ -633,7 +813,7 @@ You can read thier document as follow:
 **READ:** method => GET
 
 You can read thier document as follow:
-#### verifycode(GET) "*rootEndPoint*/verifycode":
+#### gettwitt(GET) "*rootEndPoint*/gettwitt":
 **Description:** With this method you can get twitt details, its replays, its owner, ex using twitt_id:
 
 **Requst parameters:** 
@@ -727,6 +907,32 @@ You can read thier document as follow:
 
 ***
 
+- Status code: 422
+    - description: If some parameter don't provided or provided wrong, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>,
+            field: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            "status": 422,
+            "success": false,
+            "message": "username null or undefined",
+            "field": "username"
+        }
+        ```
+
+***
+
 - Status code: 500
     - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
     - body:
@@ -756,7 +962,7 @@ You can read thier document as follow:
 **READ:** method => GET
 
 You can read thier document as follow:
-#### verifycode(GET) "*rootEndPoint*/verifycode":
+#### getuserTwitts(GET) "*rootEndPoint*/getusertwitts":
 **Description:** With this method you can get twitt details and its replays belong to a specific user:
 
 **Requst parameters:** 
@@ -818,6 +1024,32 @@ You can read thier document as follow:
 
 ***
 
+- Status code: 422
+    - description: If some parameter don't provided or provided wrong, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>,
+            field: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            "status": 422,
+            "success": false,
+            "message": "username null or undefined",
+            "field": "username"
+        }
+        ```
+
+***
+
 - Status code: 500
     - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
     - body:
@@ -847,7 +1079,7 @@ You can read thier document as follow:
 **READ:** method => GET
 
 You can read thier document as follow:
-#### verifycode(GET) "*rootEndPoint*/verifycode":
+#### deletetwitt(GET) "*rootEndPoint*/deletetwitt":
 **Description:** With this method you can delete a specific twitt using twitt_id
 
 **Requst parameters:** 
@@ -902,6 +1134,32 @@ You can read thier document as follow:
             status: 404,
             success: false,
             message: "twitt not found"
+        }
+        ```
+
+***
+
+- Status code: 422
+    - description: If some parameter don't provided or provided wrong, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>,
+            field: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            "status": 422,
+            "success": false,
+            "message": "username null or undefined",
+            "field": "username"
         }
         ```
 
