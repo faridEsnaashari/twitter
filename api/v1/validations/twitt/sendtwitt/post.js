@@ -2,14 +2,6 @@ const { IsString, IsUndefinedOrNull, IsLessThanTwittLengthLimit } = require(glob
 
 function checkValidation(req, res, next){
     try{
-        if(IsUndefinedOrNull(req.body.usertoken)){
-            const error = {
-                message: 'usertoken null or undefined',
-                field: 'usertoken',
-                error: 'undefined'
-            }
-            throw error;
-        }
         if(IsUndefinedOrNull(req.body.text)){
             const error = {
                 message: 'text null or undefined',
@@ -23,14 +15,6 @@ function checkValidation(req, res, next){
                 message: 'text is bigger than twitt length limitation',
                 field: 'text',
                 error: 'reach twitt length limitation'
-            }
-            throw error;
-        }
-        if(!IsString(req.body.usertoken)){
-            const error = {
-                message: 'usertoken should be string',
-                field: 'usertoken',
-                error: 'wrong format'
             }
             throw error;
         }
