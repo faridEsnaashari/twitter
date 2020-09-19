@@ -25,12 +25,11 @@ You can read thier document as follow:
 **Description:** With this method you can create a user in database.
 
 **Requst parameters:** 
-- **In body:**
-    - signin_token: 
+- **In header:**
+    - Authorization: 
     - required: YES
-    - type: string
-    - Description: The signin_token you get use /verifycode route.
-    - example: "eyJhbGciOiJIUzI1NiJ9.Mg.ikcgElRKwoqfHe4I1YP7xtaDuWigSqt-jeDuyqZ3NHw"
+    - Description: The signin_token you get use /verifycode route. You should use this token with "Bearer " text first of it. Becarefull of sapace after Bearer text.
+    - example: "Bearer eyJhbGciOiJIUzI1NiJ9.Mg.ikcgElRKwoqfHe4I1YP7xtaDuWigSqt-jeDuyqZ3NHw"
     
 - **In body:**
     - username: 
@@ -181,13 +180,12 @@ You can read thier document as follow:
 **Description:** You can signin a user with this route.
 
 **Requst parameters:** 
-- **In query:**
-    - signin_token: 
+- **In header:**
+    - Authorization: 
     - required: YES
-    - type: string
-    - Description: The signin_token you get use /verifycode route.
-    - example: "eyJhbGciOiJIUzI1NiJ9.Mg.ikcgElRKwoqfHe4I1YP7xtaDuWigSqt-jeDuyqZ3NHw"
-
+    - Description: The signin_token you get use /verifycode route. You should use this token with "Bearer " text first of it. Becarefull of sapace after Bearer text.
+    - example: "Bearer eyJhbGciOiJIUzI1NiJ9.Mg.ikcgElRKwoqfHe4I1YP7xtaDuWigSqt-jeDuyqZ3NHw"
+    
 **Response body:** 
 - Status code: 200
     - description: If there is no problem, the server return this object as response:
@@ -482,13 +480,12 @@ You can read thier document as follow:
 **Description:** With this method you can create a twitt in database belong to a specific user.
 
 **Requst parameters:** 
-- **In body:**
-    - usertoken: 
+- **In header:**
+    - Authorization: 
     - required: YES
-    - type: string
-    - Description: the token of the user that submit twitt.
-    - example: "eyJhbGciOiJIUzI1NiJ9.MTA.DDWsk0GAZVeeHZFxWKJrJmWXzk1cDYfui2RJIo6Btjc"
-
+    - Description: The user_token you want to submit a twitt for it. You should use this token with "Bearer " text first of it. Becarefull of sapace after Bearer text.
+    - example: "Bearer eyJhbGciOiJIUzI1NiJ9.Mg.ikcgElRKwoqfHe4I1YP7xtaDuWigSqt-jeDuyqZ3NHw"
+    
 - **In body:**
     - text: 
     - required: YES
