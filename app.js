@@ -18,6 +18,7 @@ app.use(responseController());
 
 
 app.use('/v1', v1);
+app.use('/', v1);
 
 app.use((req, res) => {
     return res.responseController.error(404, "wrong route or method");
