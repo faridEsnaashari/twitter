@@ -8,6 +8,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 var device = require('express-device');
 const responseController = require(global.middleware.responser);
+const mongooseConnection = require(global.tools.mongooseConnection);
 const v1 = require('./api/v1/v1');
 
 const app = express();
