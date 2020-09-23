@@ -21,6 +21,9 @@ const env = {
         ROOT_ENDPOINT: process.env.ROOT_ENDPOINT,
         NODE_ENV: process.env.NODE_ENV,
         SERVER_PORT: process.env.PORT
+    },
+    MONGOOSE:{
+        MONGOOSE_URL: process.env.MONGOOSE_URL
     }
 };
 
@@ -30,7 +33,8 @@ const Path = {
         processAuthorization: path.resolve('./api/middleware/processAuthorization.js')
     },
     tools:{
-        connection: path.resolve('./api/tools/connectionManager.js'),
+        connection: path.resolve('./api/tools/sqlConnectionManager.js'),
+        mongooseConnection: path.resolve('./api/tools/mongooseConnectionManager'),
         token: path.resolve('./api/tools/token.js'),
         randomCode: path.resolve('./api/tools/randomCode.js'),
         validation: path.resolve('./api/tools/validation.js'),
