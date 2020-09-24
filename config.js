@@ -59,6 +59,13 @@ const Path = {
             gettwittRoute: path.resolve('./api/v1/validations/twitt/gettwitt'),
             getusertwittsRoute: path.resolve('./api/v1/validations/twitt/getusertwitts'),
             sendtwittRoute: path.resolve('./api/v1/validations/twitt/sendtwitt')
+        },
+        models: {
+            twitt_model: path.resolve('./api/v1/model/twitt_model'),
+            like_model: path.resolve('./api/v1/model/like_model'),
+            retwitter_model: path.resolve('./api/v1/model/retwitter_model'),
+            user_model: path.resolve('./api/v1/model/user_model'),
+            verification_log_model: path.resolve('./api/v1/model/verification_log_model'),
         }
     }
 };
