@@ -24,6 +24,12 @@ const twitts_ids_replay_to_this_twitt_detail = [{
     default: null
 }]
 
+const users_retwitt_this_twitt_detail = [{
+    type: types.ObjectId,
+    ref: 'User',
+    default: null
+}]
+
 const date_detail = {
     type: Number,
     maxLength: 13,
@@ -48,6 +54,7 @@ const twitt_schema = new mongoose.Schema({
     deleted: deleted_detail,
     replay_to_id: replay_to_id_detail,
     twitts_ids_replay_to_this_twitt: twitts_ids_replay_to_this_twitt_detail,
+    users_retwitt_this_twitt: users_retwitt_this_twitt_detail,
 });
 
 module.exports = mongoose.model('Twitt', twitt_schema, 'twitts');
