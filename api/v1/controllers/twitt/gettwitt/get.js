@@ -19,7 +19,7 @@ async function get(req, res) {
             owner_id: twitt.user_id[0]
         };
 
-        const populated_twitt = await twitt.populate('twitts_ids_replay_to_this_twitt').execPopulate();
+        let populated_twitt = await twitt.populate('twitts_ids_replay_to_this_twitt').execPopulate();
 
         const result_replays = [];
         populated_twitt.twitts_ids_replay_to_this_twitt.forEach((value) => {
@@ -35,13 +35,27 @@ async function get(req, res) {
             result_replays.push(replay);
         });
 
+        populated_twitt = await twitt.populate('users_retwitt_this_twitt').execPopulate();
+
+        const result_retwitters = [];
+        populated_twitt.users_retwitt_this_twitt.forEach((value) => {
+            const retwitter = {
+                user_id: value._id,
+                user_name: value.username,
+                user_family: value.userfamily
+            };
+
+            result_retwitters.push(retwitter);
+        });
+
         result.replays = result_replays;
+        result.retwitters = result_retwitters;
 
         return res.responseController.send(200, null, { twitt: result });
     }
     catch(err){
         console.error(err);
-        if(err === "twitt not found"){
+        if(err === "twitt not found" || err.path === '_id'){
             return res.responseController.error(404, "twitt not found");
         }
         return res.responseController.error(500, "internal server error");

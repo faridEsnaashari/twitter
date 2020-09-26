@@ -37,6 +37,9 @@ async function get(req, res) {
         if(err === "user not permited"){
             return res.responseController.error(403, "this twitt is not belong to current user");
         }
+        if(err.path === "_id"){
+            return res.responseController.error(404, "twitt not found");
+        }
         return res.responseController.error(500, "internal server error");
     }
 }

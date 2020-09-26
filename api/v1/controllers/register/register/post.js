@@ -38,7 +38,7 @@ async function post(req, res) {
     }
     catch (err) {
         console.error(err);
-        if(err === "invalid singin_token"){
+        if(err === "invalid singin_token" || err.path === "_id"){
             return res.responseController.error(403, "invalid singin_token");
         }
         if(err === "a user already exist with this national_id_number"){

@@ -22,7 +22,7 @@ async function get(req, res) {
     }
     catch (err) {
         console.error(err);
-        if((err.message && (err.message.includes('jwt') || err.message.includes('invalid signature'))) || err === "invalid singin_token" || err.message === "invalid token"){
+        if(err.path === "_id" || (err.message && (err.message.includes('jwt') || err.message.includes('invalid signature'))) || err === "invalid singin_token" || err.message === "invalid token"){
             return res.responseController.error(403, "invalid singin_token");
         }
         if(err === "user doesn't found"){

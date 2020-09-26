@@ -50,6 +50,9 @@ async function post(req, res) {
         if(err === "parent twitt not found"){
             return res.responseController.error(404, "parent twitt not found");
         }
+        if(err.path === "_id"){
+            return res.responseController.error(422, "invalid id type");
+        }
         return res.responseController.error(500, "internal server error");
     }
 }
