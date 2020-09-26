@@ -1083,13 +1083,18 @@ You can read thier document as follow:
 **Description:** With this method you can delete a specific twitt using twitt_id
 
 **Requst parameters:** 
+- **In header:**
+    - Authorization: 
+    - required: YES
+    - Description: The signin_token you get use /verifycode route. You should use this token with "Bearer " text first of it. Becarefull of sapace after Bearer text.
+    - example: "Bearer eyJhbGciOiJIUzI1NiJ9.Mg.ikcgElRKwoqfHe4I1YP7xtaDuWigSqt-jeDuyqZ3NHw"
+    
 - **In query:**
     - twitt_id: 
     - required: YES
     - type: string
     - Description: Id of the twitt you want to delete it.
     - example: "10"
-
 **Response body:** 
 - Status code: 200
     - description: If there is no problem, the server return this object as response:
@@ -1116,7 +1121,7 @@ You can read thier document as follow:
 ***
 
 - Status code: 404
-    - description: If the code is invalid, you get a response like this
+    - description: If the the twitt you are looking for is find, you get a response like this
     - body:
 
         ```javascript
@@ -1134,6 +1139,54 @@ You can read thier document as follow:
             status: 404,
             success: false,
             message: "twitt not found"
+        }
+        ```
+
+***
+
+- Status code: 404
+    - description: If the user you are provide with header is not find, you get a response like this
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>,
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 404,
+            success: false,
+            message: "user not found"
+        }
+        ```
+
+***
+
+- Status code: 403
+    - description: If the twitt you want to delete is not belong to the user you provide in header, you get a response like this
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>,
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 404,
+            success: false,
+            message: "this twitt is not belong to current user"
         }
         ```
 
