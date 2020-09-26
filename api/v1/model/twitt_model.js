@@ -6,17 +6,23 @@ const text_detail = {
     required: true,
 };
 
-const user_id_detail = {
+const user_id_detail = [{
     type: types.ObjectId,
     ref: 'User',
     required: true
-}
+}]
 
-const replay_to_id_detail = {
+const replay_to_id_detail = [{
     type: types.ObjectId,
     ref: 'Twitt',
-    required: true
-}
+    default: null
+}]
+
+const twitts_ids_replay_to_this_twitt_detail = [{
+    type: types.ObjectId,
+    ref: 'Twitt',
+    default: null
+}]
 
 const date_detail = {
     type: Number,
@@ -39,8 +45,9 @@ const twitt_schema = new mongoose.Schema({
     img_link: img_link_detail,
     user_id: user_id_detail,
     date: date_detail,
+    deleted: deleted_detail,
     replay_to_id: replay_to_id_detail,
-    deleted: deleted_detail
+    twitts_ids_replay_to_this_twitt: twitts_ids_replay_to_this_twitt_detail,
 });
 
 module.exports = mongoose.model('Twitt', twitt_schema, 'twitts');
