@@ -7,6 +7,12 @@ const twitts_ids_detail = [{
     default: null
 }]
 
+const retwitts_ids_detail = [{
+    type: types.ObjectId,
+    ref: 'Twitt',
+    default: null
+}]
+
 const phonenumber_detail = {
     type: String,
     required: true,
@@ -34,7 +40,8 @@ const user_schema = new mongoose.Schema({
     userfamily: userfamily_detail,
     phonenumber: phonenumber_detail,
     national_id_number: national_id_number_detail,
-    twitts_ids: twitts_ids_detail
+    twitts_ids: twitts_ids_detail,
+    retwitts_ids: retwitts_ids_detail
 });
 
 module.exports = mongoose.model('User', user_schema, 'users');
