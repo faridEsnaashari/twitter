@@ -1,4 +1,3 @@
-const { connection, executeQuery } = require(global.tools.connection);
 const VerificationLog = require(global.models.verification_log_model);
 const User = require(global.models.user_model);
 const Twitt = require(global.models.twitt_model);
