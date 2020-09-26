@@ -1184,7 +1184,7 @@ You can read thier document as follow:
         
         ```javascript
         {
-            status: 404,
+            status: 403,
             success: false,
             message: "this twitt is not belong to current user"
         }
@@ -1220,6 +1220,406 @@ You can read thier document as follow:
 
 - Status code: 500
     - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 500,
+            success: false,
+            message: "internal server error"
+        }
+        ```
+
+***
+
+## retwitt a twitt
+
+**READ:** method => GET
+
+You can read thier document as follow:
+#### retwitt(GET) "*rootEndPoint*/retwitt":
+**Description:** With this method you can submit twitt for an other user as retwitt for it or reverse.
+
+**Requst parameters:** 
+- **In header:**
+    - Authorization: 
+    - required: YES
+    - Description: The user_token you get use /signin route. You should use this token with "Bearer " text first of it. Becarefull of sapace after Bearer text.
+    - example: "Bearer eyJhbGciOiJIUzI1NiJ9.Mg.ikcgElRKwoqfHe4I1YP7xtaDuWigSqt-jeDuyqZ3NHw"
+    
+- **In query:**
+    - twitt_id: 
+    - required: YES
+    - type: string
+    - Description: Id of the twitt you want to retwitt it.
+    - example: "5f6efbc4d878ee3035d40a61"
+
+- **In query:**
+    - retwitt_status: 
+    - required: YES
+    - type: string
+    - Description: The type of the operation you want to do. It can be unretwitt or retwitt.
+    - example: unretwitt
+
+**Response body:** 
+- Status code: 200
+    - description: If there is no problem, the server return this object as response:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 200,
+            success: true,
+            message: "unretwitt operation done successfully"
+        }
+        ```
+
+***
+
+- Status code: 404
+    - description: If the the twitt you are looking for not find, you get a response like this
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>,
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 404,
+            success: false,
+            message: "twitt not found"
+        }
+        ```
+
+***
+
+- Status code: 404
+    - description: If the user you are provide with header is not find, you get a response like this
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>,
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 404,
+            success: false,
+            message: "user not found"
+        }
+        ```
+
+***
+
+- Status code: 404
+    - description: If the twitt you want to unretwitt is not retwitted before, you get a response like this
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>,
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 404,
+            success: false,
+            message: "user doesn't retwitt this twitt before"
+        }
+        ```
+
+***
+
+- Status code: 422
+    - description: If the twitt you want to retwitt is already retwitted, you get a response like this
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>,
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 422,
+            success: false,
+            message: "this twitt already retwitts by this user"
+        }
+        ```
+
+***
+
+- Status code: 422
+    - description: If some parameter don't provided or provided wrong, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>,
+            field: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            "status": 422,
+            "success": false,
+            "message": "username null or undefined",
+            "field": "username"
+        }
+        ```
+
+***
+
+- Status code: 500
+    - description: If same phonenumber or national_id_number already exists in database, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 500,
+            success: false,
+            message: "internal server error"
+        }
+        ```
+
+***
+
+## like a twitt
+
+**READ:** method => GET
+
+You can read thier document as follow:
+#### like(GET) "*rootEndPoint*/like":
+**Description:** With this method you can submit like for a twitt or reverse.
+
+**Requst parameters:** 
+- **In header:**
+    - Authorization: 
+    - required: YES
+    - Description: The user_token you get use /signin route. You should use this token with "Bearer " text first of it. Becarefull of sapace after Bearer text.
+    - example: "Bearer eyJhbGciOiJIUzI1NiJ9.Mg.ikcgElRKwoqfHe4I1YP7xtaDuWigSqt-jeDuyqZ3NHw"
+    
+- **In query:**
+    - twitt_id: 
+    - required: YES
+    - type: string
+    - Description: Id of the twitt you want to like or unlike it.
+    - example: "5f6efbc4d878ee3035d40a61"
+
+- **In query:**
+    - retwitt_status: 
+    - required: YES
+    - type: string
+    - Description: The type of the operation you want to do. It can be unretwitt or retwitt.
+    - example: unretwitt
+
+**Response body:** 
+- Status code: 200
+    - description: If there is no problem, the server return this object as response:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 200,
+            success: true,
+            message: "unlike operation done successfully"
+        }
+        ```
+
+***
+
+- Status code: 404
+    - description: If the the twitt you are looking for not find, you get a response like this
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>,
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 404,
+            success: false,
+            message: "twitt not found"
+        }
+        ```
+
+***
+
+- Status code: 404
+    - description: If the user you are provide with header is not find, you get a response like this
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>,
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 404,
+            success: false,
+            message: "user not found"
+        }
+        ```
+
+***
+
+- Status code: 404
+    - description: If the twitt you want to unlike is not liked before, you get a response like this
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>,
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 404,
+            success: false,
+            message: "user doesn't like this twitt before"
+        }
+        ```
+
+***
+
+- Status code: 422
+    - description: If the twitt you want to like it is already liked, you get a response like this
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>,
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            status: 422,
+            success: false,
+            message: "this twitt already liked by this user"
+        }
+        ```
+
+***
+
+- Status code: 422
+    - description: If some parameter don't provided or provided wrong, you get a response like this:
+    - body:
+
+        ```javascript
+        {
+            status: <Integer>,
+            success: <Boolean>,
+            message: <String>,
+            field: <String>
+        }
+        ```
+        
+    - for example the response body may be like this:
+        
+        ```javascript
+        {
+            "status": 422,
+            "success": false,
+            "message": "username null or undefined",
+            "field": "username"
+        }
+        ```
+
+***
+
+- Status code: 500
+    - description: If some unhandled error happend, you get a response like this:
     - body:
 
         ```javascript
