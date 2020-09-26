@@ -21,7 +21,7 @@ For signin a user:
 
 You can read thier document as follow:
 
-#### register(POST) "*rootEndPoint*/register":
+#### register(POST) "*rootEndPoint*/v1/register":
 **Description:** With this method you can create a user in database.
 
 **Requst parameters:** 
@@ -228,7 +228,7 @@ You can read thier document as follow:
 **READ:** method => GET
 
 You can read thier document as follow:
-#### signin(GET) "*rootEndPoint*/signin":
+#### signin(GET) "*rootEndPoint*/v1/signin":
 **Description:** You can signin a user with this route.
 
 **Requst parameters:** 
@@ -366,7 +366,7 @@ You can read thier document as follow:
 **READ:** method => GET
 
 You can read thier document as follow:
-#### verifyphonenumber(GET) "*rootEndPoint*/verifyphonenumber":
+#### verifyphonenumber(GET) "*rootEndPoint*/v1/verifyphonenumber":
 **Description:** With this method you can verify a phonenumber. This route send code to phonenumber via sms.
 
 **Requst parameters:** 
@@ -481,7 +481,7 @@ You can read thier document as follow:
 **READ:** method => GET
 
 You can read thier document as follow:
-#### verifycode(GET) "*rootEndPoint*/verifycode":
+#### verifycode(GET) "*rootEndPoint*/v1/verifycode":
 **Description:** With this method you can check a code and a number related to it:
 
 **Requst parameters:** 
@@ -606,7 +606,7 @@ You can read thier document as follow:
 
 You can read thier document as follow:
 
-#### sendtwitt(POST) "*rootEndPoint*/sendtwitt":
+#### sendtwitt(POST) "*rootEndPoint*/v1/twitt/sendtwitt":
 **Description:** With this method you can create a twitt in database belong to a specific user.
 
 **Requst parameters:** 
@@ -813,7 +813,7 @@ You can read thier document as follow:
 **READ:** method => GET
 
 You can read thier document as follow:
-#### gettwitt(GET) "*rootEndPoint*/gettwitt":
+#### gettwitt(GET) "*rootEndPoint*/v1/twitt/gettwitt":
 **Description:** With this method you can get twitt details, its replays, its owner, ex using twitt_id:
 
 **Requst parameters:** 
@@ -962,7 +962,7 @@ You can read thier document as follow:
 **READ:** method => GET
 
 You can read thier document as follow:
-#### getuserTwitts(GET) "*rootEndPoint*/getusertwitts":
+#### getuserTwitts(GET) "*rootEndPoint*/v1/twitt/getusertwitts":
 **Description:** With this method you can get twitt details and its replays belong to a specific user:
 
 **Requst parameters:** 
@@ -1079,7 +1079,7 @@ You can read thier document as follow:
 **READ:** method => GET
 
 You can read thier document as follow:
-#### deletetwitt(GET) "*rootEndPoint*/deletetwitt":
+#### deletetwitt(GET) "*rootEndPoint*/v1/twitt/deletetwitt":
 **Description:** With this method you can delete a specific twitt using twitt_id
 
 **Requst parameters:** 
@@ -1247,7 +1247,7 @@ You can read thier document as follow:
 **READ:** method => GET
 
 You can read thier document as follow:
-#### retwitt(GET) "*rootEndPoint*/retwitt":
+#### retwitt(GET) "*rootEndPoint*/v1/twitt/retwitt":
 **Description:** With this method you can submit twitt for an other user as retwitt for it or reverse.
 
 **Requst parameters:** 
@@ -1447,7 +1447,7 @@ You can read thier document as follow:
 **READ:** method => GET
 
 You can read thier document as follow:
-#### like(GET) "*rootEndPoint*/like":
+#### like(GET) "*rootEndPoint*/v1/twitt/like":
 **Description:** With this method you can submit like for a twitt or reverse.
 
 **Requst parameters:** 
