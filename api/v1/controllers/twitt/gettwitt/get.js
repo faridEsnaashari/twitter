@@ -23,16 +23,18 @@ async function get(req, res) {
 
         const result_replays = [];
         populated_twitt.twitts_ids_replay_to_this_twitt.forEach((value) => {
-            const replay = {
-                twitt_id: value._id,
-                text: value.text,
-                img_link: value.img_link,
-                replay_to: value.replay_to_id[0] || null,
-                date: new Date(parseInt(value.date)),
-                owner_id: value.user_id[0]
-            };
+            if(value.deleted === false){
+                const replay = {
+                    twitt_id: value._id,
+                    text: value.text,
+                    img_link: value.img_link,
+                    replay_to: value.replay_to_id[0] || null,
+                    date: new Date(parseInt(value.date)),
+                    owner_id: value.user_id[0]
+                };
 
-            result_replays.push(replay);
+                result_replays.push(replay);
+            }
         });
 
         populated_twitt = await twitt.populate('users_retwitt_this_twitt').execPopulate();
