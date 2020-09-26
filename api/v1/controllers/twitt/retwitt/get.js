@@ -60,7 +60,7 @@ async function get(req, res) {
             return res.responseController.error(422, "this twitt already retwitts by this user");
         }
         if(err.path === "_id"){
-            return res.responseController.error(404, "invalid id type");
+            return res.responseController.error(422, "invalid id type");
         }
         return res.responseController.error(500, "internal server error");
     }
