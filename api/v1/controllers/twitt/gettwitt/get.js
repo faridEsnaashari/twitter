@@ -22,6 +22,7 @@ async function get(req, res) {
         let populated_twitt = await twitt.populate('twitts_ids_replay_to_this_twitt').execPopulate();
 
         const result_replays = [];
+        let replays_count = 0;
         populated_twitt.twitts_ids_replay_to_this_twitt.forEach((value) => {
             if(value.deleted === false){
                 const replay = {
@@ -34,6 +35,7 @@ async function get(req, res) {
                 };
 
                 result_replays.push(replay);
+                replays_count ++;
             }
         });
 
@@ -51,7 +53,10 @@ async function get(req, res) {
         });
 
         result.replays = result_replays;
+        result.replays_count = replays_count;
+
         result.retwitters = result_retwitters;
+        result.retwitts_count = populated_twitt.users_retwitt_this_twitt.length;
 
         return res.responseController.send(200, null, { twitt: result });
     }
