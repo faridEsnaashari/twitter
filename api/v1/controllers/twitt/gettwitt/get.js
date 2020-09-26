@@ -52,11 +52,28 @@ async function get(req, res) {
             result_retwitters.push(retwitter);
         });
 
+        populated_twitt = await twitt.populate('users_like_this_twitt').execPopulate();
+
+        const result_likers = [];
+        populated_twitt.users_like_this_twitt.forEach((value) => {
+            console.log(value);
+            const liker = {
+                user_id: value._id,
+                user_name: value.username,
+                user_family: value.userfamily
+            };
+
+            result_likers.push(liker);
+        });
+
         result.replays = result_replays;
         result.replays_count = replays_count;
 
         result.retwitters = result_retwitters;
         result.retwitts_count = populated_twitt.users_retwitt_this_twitt.length;
+
+        result.likers = result_likers;
+        result.likes_count = populated_twitt.users_like_this_twitt.length;
 
         return res.responseController.send(200, null, { twitt: result });
     }
