@@ -849,7 +849,24 @@ You can read thier document as follow:
                         date: <String>,
                         owner_id: <Integer>
                     }
-                ]
+                ],
+                replays_count: <Integer>,
+                retwitters: <Array of User Object>[
+                    {
+                        user_id: <String>,
+                        user_name: <String>,
+                        user_family: <String>
+                    }
+                ],
+                retwitts_count: <Integer>,
+                likers: <Array of User Object>[
+                    {
+                        user_id: <String>,
+                        user_name: <String>,
+                        user_family: <String>
+                    }
+                ],
+                likes_count: <Integer>,
             }
         }
         ```
@@ -858,25 +875,38 @@ You can read thier document as follow:
         
         ```javascript
         {
-            status: 200,
-            success: true,
-            twitt: {
-                twitt_id: 5,
-                text: "plain text",
-                img_link: "http://domain.com/image.png",
-                replay_to: null,
-                date: "2020-09-12T10:57:37.586Z",
-                owner_id: 10,
-                replays: [
+            "status": 200,
+            "success": true,
+            "twitt": {
+                "twitt_id": "5f6efc2ed878ee3035d40a62",
+                "text": "gav",
+                "img_link": null,
+                "replay_to": "5f6efb3fd878ee3035d40a5f",
+                "date": "2020-09-26T08:17:25.263Z",
+                "owner_id": "5f6efbc4d878ee3035d40a61",
+                "replays": [],
+                "replays_count": 0,
+                "retwitters": [
                     {
-                        twitt_id: 9,
-                        text: "plain text",
-                        img_link: "http://domain.com/image2.png",
-                        replay_to: 5,
-                        date: "2020-09-12T10:59:49.943Z",
-                        owner_id: 14
+                        "user_id": "5f6efbc4d878ee3035d40a61",
+                        "user_name": "farid2",
+                        "user_family": "esnaashari2"
                     }
-                ]
+                ],
+                "retwitts_count": 1,
+                "likers": [
+                    {
+                        "user_id": "5f6efbc4d878ee3035d40a61",
+                        "user_name": "farid2",
+                        "user_family": "esnaashari2"
+                    },
+                    {
+                        "user_id": "5f6efa0dd878ee3035d40a5e",
+                        "user_name": "farid",
+                        "user_family": "esnaashari"
+                    }
+                ],
+                "likes_count": 2
             }
         }
         ```
