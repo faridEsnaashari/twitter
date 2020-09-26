@@ -7,13 +7,6 @@ const env = {
         APIKEY: process.env.APIKEY,
         SECRETKEY: process.env.SECRETKEY
     },
-    MYSQL: {
-        PORT: process.env.MYSQL_PORT,
-        USER: process.env.MYSQL_USER,
-        PASSWORD: process.env.MYSQL_PASSWORD,
-        DATABASE: process.env.MYSQL_DATABASE,
-        HOST: process.env.MYSQL_HOST
-    },
     JWT: {
         KEY: process.env.JWT_KEY
     },
@@ -33,7 +26,6 @@ const Path = {
         processAuthorization: path.resolve('./api/middleware/processAuthorization.js')
     },
     tools:{
-        connection: path.resolve('./api/tools/sqlConnectionManager.js'),
         mongooseConnection: path.resolve('./api/tools/mongooseConnectionManager'),
         token: path.resolve('./api/tools/token.js'),
         randomCode: path.resolve('./api/tools/randomCode.js'),

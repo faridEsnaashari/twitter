@@ -1,4 +1,3 @@
-const { connection, executeQuery } = require(global.tools.connection);
 const generateRandomCode = require(global.tools.randomCode);
 const { Token, VerificationCode } = require('sms-ir');
 const VerificationLog = require(global.models.verification_log_model);

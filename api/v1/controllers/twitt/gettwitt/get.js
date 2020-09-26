@@ -1,4 +1,3 @@
-const { connection, executeQuery } = require(global.tools.connection);
 const User = require(global.models.user_model);
 const Twitt = require(global.models.twitt_model);
 

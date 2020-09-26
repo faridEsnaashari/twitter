@@ -1,4 +1,3 @@
-const { connection, executeQuery } = require(global.tools.connection);
 const token = require(global.tools.token);
 const VerificationLog = require(global.models.verification_log_model);
 const User = require(global.models.user_model);
