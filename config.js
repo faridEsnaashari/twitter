@@ -41,7 +41,8 @@ const Path = {
             gettwittRoute: path.resolve('./api/v1/controllers/twitt/gettwitt'),
             getusertwittsRoute: path.resolve('./api/v1/controllers/twitt/getusertwitts'),
             sendtwittRoute: path.resolve('./api/v1/controllers/twitt/sendtwitt'),
-            retwittRoute: path.resolve('./api/v1/controllers/twitt/retwitt')
+            retwittRoute: path.resolve('./api/v1/controllers/twitt/retwitt'),
+            likeRoute: path.resolve('./api/v1/controllers/twitt/like'),
         },
         validations:{
             registerRoute: path.resolve('./api/v1/validations/register/register'),
@@ -52,7 +53,8 @@ const Path = {
             gettwittRoute: path.resolve('./api/v1/validations/twitt/gettwitt'),
             getusertwittsRoute: path.resolve('./api/v1/validations/twitt/getusertwitts'),
             sendtwittRoute: path.resolve('./api/v1/validations/twitt/sendtwitt'),
-            retwittRoute: path.resolve('./api/v1/validations/twitt/retwitt')
+            retwittRoute: path.resolve('./api/v1/validations/twitt/retwitt'),
+            likeRoute: path.resolve('./api/v1/validations/twitt/like'),
         },
         models: {
             twitt_model: path.resolve('./api/v1/model/twitt_model'),
