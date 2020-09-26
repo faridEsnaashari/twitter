@@ -1,32 +1,42 @@
 const { connection, executeQuery } = require(global.tools.connection);
+const User = require(global.models.user_model);
+const Twitt = require(global.models.twitt_model);
 
 async function post(req, res) {
-    const userId = req.body.decoded_token;
+    const user_id = req.body.decoded_token;
     const text = req.body.text;
-    const replayTo = req.body.replay_to || null;
-    const imgLink = req.body.img_link || null;
-    const date = Date.now();
+    const replay_to = req.body.replay_to || null;
+    const img_link = req.body.img_link || null;
 
     try{
-        let query = `select * from users_tbl_view where user_id = '${ userId }'`;
-        const checkUserIdResult = await executeQuery(connection, query);
-        if(checkUserIdResult.length === 0){
+        const user = await User.findById(user_id).exec();
+
+        if(!user){
             throw "user doesn't found";
         }
-        if(req.body.replay_to){
-            query = `select * from twitts_tbl_view where twitt_id = '${ replayTo }'`;
-            const checkRepalyToResult = await executeQuery(connection, query);
-            if(checkRepalyToResult.length === 0){
+
+        user.twitts_ids.push(user_id);
+        await user.save();
+
+        const new_twitt = new Twitt({
+            text: text,
+            img_link: img_link,
+            user_id: user_id,
+        });
+
+        if(replay_to){
+            const twitt = await Twitt.findOne({$and: [{_id: replay_to}, {deleted: false}]});
+            if(!twitt){
                 throw "parent twitt not found";
             }
+
+            new_twitt.replay_to_id = replay_to;
+
+            twitt.twitts_ids_replay_to_this_twitt.push(new_twitt._id);
+            await twitt.save();
         }
-        query = `insert into twitts_tbl(text, img_link, user_id, date, replay_to_id) value(
-            '${ text }',
-            '${ imgLink }',
-            UUID_TO_BIN('${ userId }'),
-            '${ date }',
-            UUID_TO_BIN('${ replayTo }'))`;
-        const insertIntoTwittsTblResult = await executeQuery(connection, query);
+
+        await new_twitt.save();
 
         return res.responseController.send(201, "twitt submited");
     }

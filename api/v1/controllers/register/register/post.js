@@ -1,4 +1,6 @@
 const { connection, executeQuery } = require(global.tools.connection);
+const VerificationLog = require(global.models.verification_log_model);
+const User = require(global.models.user_model);
 
 async function post(req, res) {
     try {
@@ -8,30 +10,30 @@ async function post(req, res) {
 
         const log_id = req.body.decoded_token;
 
-        let query = `select * from verification_log_tbl_view where log_id = '${ log_id }'`;
-        const selectFromVerificationLogTBLResult = await executeQuery(connection, query);
+        const log = await VerificationLog.findById(log_id).exec();
         
-        if(!selectFromVerificationLogTBLResult[0] || !selectFromVerificationLogTBLResult[0].verified){
+        if(!log || !log.verified){
             throw "invalid singin_token";
         }
-        const phonenumber = selectFromVerificationLogTBLResult[0].phonenumber;
 
-        query = `select * from users_tbl_view where national_id_number = '${national_id_number}'`;
-        const selectNationalIdFromUsersTBLResult = await executeQuery(connection, query);
-
-        if (selectNationalIdFromUsersTBLResult.length !== 0) {
+        let user = await User.findOne({phonenumber: log.phonenumber}).exec();
+        if(user){
+            throw "a user already exist with this phonenumber";
+        }
+        
+        user = await User.findOne({national_id_number: national_id_number}).exec(); 
+        if(user){
             throw "a user already exist with this national_id_number";
         }
 
-        query = `select * from users_tbl_view where phonenumber = '${phonenumber}'`;
-        const selectPhonenumberFromUsersTBLResult = await executeQuery(connection, query);
+        const new_user = new User({
+            national_id_number: national_id_number,
+            phonenumber: log.phonenumber,
+            username: username,
+            userfamily: userfamily
+        });
 
-        if (selectPhonenumberFromUsersTBLResult.length !== 0) {
-            throw "a user already exist with this phonenumber";
-        }
-
-        query = `insert into users_tbl(username, userfamily, phonenumber, national_id_number) value('${username}', '${userfamily}', '${phonenumber}', '${national_id_number}')`;
-        const insertResult = await executeQuery(connection, query);
+        const inserted_user = await new_user.save();
 
         return res.responseController.send(201, "user created");
     }
@@ -41,7 +43,7 @@ async function post(req, res) {
             return res.responseController.error(403, "invalid singin_token");
         }
         if(err === "a user already exist with this national_id_number"){
-            return res.responseController.errpr(409, "a user already existed with this national_id_number");
+            return res.responseController.error(409, "a user already existed with this national_id_number");
         }
         if(err === "a user already exist with this phonenumber"){
             return res.responseController.error(409, "a user already existed with this phonenumber");

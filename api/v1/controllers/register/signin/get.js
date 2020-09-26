@@ -1,28 +1,25 @@
 const { connection, executeQuery } = require(global.tools.connection);
 const token = require(global.tools.token);
+const VerificationLog = require(global.models.verification_log_model);
+const User = require(global.models.user_model);
 
 async function get(req, res) {
     try{
         const log_id = req.body.decoded_token;
 
-        let query = `select * from verification_log_tbl_view where log_id = '${ log_id }'`;
-        const selectFromVerificationLogTBLResult = await executeQuery(connection, query);
+        const log = await VerificationLog.findById(log_id).exec();
 
-        if(!selectFromVerificationLogTBLResult[0].verified){
+        if(!log || !log.verified){
             throw "invalid singin_token";
         }
-        const phonenumber = selectFromVerificationLogTBLResult[0].phonenumber;
 
-        query = `select * from users_tbl_view where phonenumber = '${ phonenumber }'`;
-        const selectFromUsersTBLResult = await executeQuery(connection, query);
+        const user = await User.findOne({phonenumber: log.phonenumber}).exec();
 
-        if (selectFromUsersTBLResult.length === 0) {
+        if(!user){
             throw "user doesn't found";
         }
 
-        userId = selectFromUsersTBLResult[0].user_id;
-        return res.responseController.send(200, "signin operation done successfully", { usertoken: token.create(userId) });
-        
+        return res.responseController.send(200, "signin operation done successfully", { usertoken: token.create(user._id + '') });
     }
     catch (err) {
         console.error(err);

@@ -1,43 +1,43 @@
 const { connection, executeQuery } = require(global.tools.connection);
+const User = require(global.models.user_model);
+const Twitt = require(global.models.twitt_model);
 
 async function get(req, res) {
     try{
         const twitt_id = req.query.twitt_id;
+        const twitt = await Twitt.findOne({$and: [{_id: twitt_id}, {deleted: false}]});
 
-        let query = `select * from twitts_tbl_view where twitt_id = '${ twitt_id }' and deleted <> true`;
-        const selectFromTwittsTBLResult = await executeQuery(connection, query);
-    
-        if(selectFromTwittsTBLResult.length === 0){
+        if(!twitt){
             throw "twitt not found";
         }
-    
+
         const result = {
-            twitt_id: selectFromTwittsTBLResult[0].twitt_id,
-            text: selectFromTwittsTBLResult[0].text,
-            img_link: selectFromTwittsTBLResult[0].img_link,
-            replay_to: selectFromTwittsTBLResult[0].replay_to_id,
-            date: new Date(parseInt(selectFromTwittsTBLResult[0].date)),
-            owner_id: selectFromTwittsTBLResult[0].user_id
+            twitt_id: twitt._id,
+            text: twitt.text,
+            img_link: twitt.img_link,
+            replay_to: twitt.replay_to_id[0] || null,
+            date: new Date(parseInt(twitt.date)),
+            owner_id: twitt.user_id[0]
         };
-    
-        query = `select * from twitts_tbl_view where replay_to_id = '${ twitt_id }' and deleted <> true`;
-        const selectReplaysFromTwittsTBLResult = await executeQuery(connection, query);   
-        
-        let replays = [];
-        selectReplaysFromTwittsTBLResult.forEach((value) => {
-            const replay_twitt = {
-                twitt_id: value.twitt_id,
+
+        const populated_twitt = await twitt.populate('twitts_ids_replay_to_this_twitt').execPopulate();
+
+        const result_replays = [];
+        populated_twitt.twitts_ids_replay_to_this_twitt.forEach((value) => {
+            const replay = {
+                twitt_id: value._id,
                 text: value.text,
                 img_link: value.img_link,
-                replay_to: value.replay_to_id,
+                replay_to: value.replay_to_id[0] || null,
                 date: new Date(parseInt(value.date)),
-                owner_id: value.user_id
+                owner_id: value.user_id[0]
             };
-            replays.push(replay_twitt);
+
+            result_replays.push(replay);
         });
 
-        result.replays = replays;
-    
+        result.replays = result_replays;
+
         return res.responseController.send(200, null, { twitt: result });
     }
     catch(err){
