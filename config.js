@@ -3,6 +3,10 @@ const path = require('path');
 dotenv.config();
 
 const env = {
+    ZARINPAL: {
+        MERCHANT_ID: process.env.MERCHANT_ID,
+        URL_TO_REDIRECT: process.env.URL_TO_REDIRECT,
+    },
     SMS_PANEL: {
         APIKEY: process.env.APIKEY,
         SECRETKEY: process.env.SECRETKEY
@@ -43,6 +47,8 @@ const Path = {
             sendtwittRoute: path.resolve('./api/v1/controllers/twitt/sendtwitt'),
             retwittRoute: path.resolve('./api/v1/controllers/twitt/retwitt'),
             likeRoute: path.resolve('./api/v1/controllers/twitt/like'),
+            payRoute: path.resolve('./api/v1/controllers/pay/root'),
+            payVerifyRoute: path.resolve('./api/v1/controllers/pay/verify'),
         },
         validations:{
             registerRoute: path.resolve('./api/v1/validations/register/register'),
@@ -55,6 +61,8 @@ const Path = {
             sendtwittRoute: path.resolve('./api/v1/validations/twitt/sendtwitt'),
             retwittRoute: path.resolve('./api/v1/validations/twitt/retwitt'),
             likeRoute: path.resolve('./api/v1/validations/twitt/like'),
+            payRoute: path.resolve('./api/v1/validations/pay/root'),
+            payVerifyRoute: path.resolve('./api/v1/validations/pay/verify'),
         },
         models: {
             twitt_model: path.resolve('./api/v1/model/twitt_model'),
