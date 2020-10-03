@@ -1,9 +1,11 @@
 global.tools = require('./config').path.tools;
 global.middleware = require('./config').path.middleware;
-global.env = require('./config').env;
 global.controllers = require('./config').path.v1.controllers;
 global.validations = require('./config').path.v1.validations;
 global.models = require('./config').path.v1.models;
+
+global.env = require('./config').env;
+
 
 const express = require('express');
 const bodyParser = require('body-parser');
