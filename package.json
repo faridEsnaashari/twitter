@@ -15,9 +15,11 @@
     "express-device": "^0.4.2",
     "http": "0.0.1-security",
     "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.7",
     "mysql": "^2.18.1",
     "node-fetch": "^2.6.1",
     "nodemon": "^2.0.4",
-    "sms-ir": "^1.0.5"
+    "sms-ir": "^1.0.5",
+    "zarinpal-checkout": "^0.2.7"
   }
 }
